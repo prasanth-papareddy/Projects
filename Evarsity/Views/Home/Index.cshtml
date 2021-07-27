@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Evarsity.Models.StudentDetails>;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+<div class="card-deck">
+        @foreach (var S in Model)
+        {
+            <div class="card m-3">
+                <div class="card-header">
+                    <h3>@S.StudentName</h3>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 m-1"><img class="card-img-top" src="~/Images/@S.PhotoPath" style="width:200px;height:200px" /></div>
+                    <div class="col-sm-12 m-1"><h4 class="text-center">@S.StudentEmail</h4><br /><h4 class="text-center">@S.StudentDepartment</h4></div>
+                </div>
+                <div class="card-footer text-center">
+                    <a asp-controller="Home" asp-action="Details" asp-route-StudentId="@S.StudentId" class="btn btn-primary">See Details</a>
+                    <a href="#" class="btn btn-primary m-1">Edit</a>
+                    <a asp-controller="Home" asp-action="Delete" asp-route-StudentId="@S.StudentId" class="btn btn-danger m-1">Delete</a>
+                </div>
+            </div>
+        }
+</div>

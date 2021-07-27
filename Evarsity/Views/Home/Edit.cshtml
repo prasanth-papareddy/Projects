@@ -1,0 +1,69 @@
+﻿@model Evarsity.ViewModels.HomeEditViewModel;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewBag.Title = "Edit Student";
+    string ImagePath = Model.ExistingPath;
+}
+
+<form asp-controller="Home" asp-action="Edit" method="post" enctype="multipart/form-data">
+
+    <input hidden asp-for="Id" />
+    <input hidden asp-for="ExistingPath" />
+
+    <div class="form-group row">
+        <label asp-for="StudentName" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="StudentName" class="form-control" />
+            <span asp-validation-for="StudentName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="StudentEmail" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="StudentEmail" class="form-control" />
+            <span asp-validation-for="StudentEmail" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="StudentDepartment" class="col-sm-2"></label>
+        <div class="col-sm-10">
+            <select asp-for="StudentDepartment" asp-items="Html.GetEnumSelectList<Department>()" class="custom-select mr-sm-2"></select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="Photo" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <div class="custom-file">
+                <input asp-for="Photo" multiple class="form-control custom-file-input" />
+                <label class="custom-file-label">ChooseFile....</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <img src="~/Images/@ImagePath" class="w-50 mx-auto d-block" />
+        </div>
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-success">Update</button>
+        <a class="btn btn-outline-secondary" asp-action="Index" asp-controller="Home">Cancel</a>
+    </div>
+    <div asp-validation-summary="All" class="text-danger"></div>
+</form>
+
+@section Scripts{
+   <script>
+        $(document).ready(function () {
+            $('.custom-file-input').on("change", function () {
+                var Label = $(this).next('.custom-file-label');
+                var files = $(this)[0].files;                                
+                //if (files.length > 1) {
+                //    Label.html(files.length + ' files selected');
+                //}               
+                    Label.html(files[0].name);                
+            });
+        });
+    </script>
+}
