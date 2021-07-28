@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model EntityFramework.Models.Student
+
+<div class="row">
+    <div class="col-sm-12">
+        <p>StudentId : @Model.Id</p><br/>
+        <p>Student Name : @Model.Name</p><br/>
+        <p>Student Mail : @Model.EmailId</p><br/>
+        <p>City : @Model.City</p>
+
+    </div>
+</div>
