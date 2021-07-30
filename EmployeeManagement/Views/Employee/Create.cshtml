@@ -1,6 +1,5 @@
-﻿@model EmployeeManagement.ViewModels.EmployeeCreateViewModel;
+﻿@model EmployeeManagement.ViewModels.EmployeeCreateViewModel
 
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <br />
 <br />
@@ -29,6 +28,21 @@
                 <option value="">Select</option>
             </select>
             <span asp-validation-for="Gender" class="text-danger"></span>
+        </div>
+    </div>
+    <br/>
+    <div class="form-group row">
+        <label asp-for="Department" class="col-sm-2"></label>
+        <div class="col-sm-10">
+            <select asp-for="Department" asp-items="@Model.Departments.Select(d => new 
+           SelectListItem()
+             {
+                 Value = d.DepartmentId.ToString(),
+                 Text = d.DepartmentName.ToString()
+             })" class="form-select">
+                <option value="">Select</option>
+            </select>
+            <span asp-validation-for="Department" class="text-danger"></span>
         </div>
     </div>
     <br />

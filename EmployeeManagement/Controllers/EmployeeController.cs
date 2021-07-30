@@ -22,9 +22,10 @@ namespace EmployeeManagement.Controllers
         
         [HttpGet]
         public IActionResult Create()
-        {      
-            
-            return View();
+        {
+            EmployeeCreateViewModel employeeCreateViewModel = new EmployeeCreateViewModel();
+            employeeCreateViewModel.Departments = departmentRepository.GetDepartments();
+            return View(employeeCreateViewModel);
         }
 
         [HttpPost]
@@ -38,7 +39,7 @@ namespace EmployeeManagement.Controllers
                 employee.Gender = employeeCreateViewModel.Gender.Value;
                 employee.Created = DateTime.Now;
                 employee.Updated = DateTime.Now;
-
+                employee.DepartmentId = employeeCreateViewModel.Department;
                Employee createdemployee =  employeeRepository.CreateEmployee(employee);
 
                return View("View" , createdemployee);

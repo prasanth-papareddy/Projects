@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,7 +20,11 @@ namespace EmployeeManagement.Models
 
         [Required(ErrorMessage ="Please select Gender")]        
         public Gender? Gender { get; set; }
-        public Department Department { get; set; }
+
+        [ForeignKey("Department")]
+        public int DepartmentId { get; set; }
+
+        public virtual Department Department { get; set; }
         public Role Role { get; set; }
 
         public DateTime Created { get; set; }

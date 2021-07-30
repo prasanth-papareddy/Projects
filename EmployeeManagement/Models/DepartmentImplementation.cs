@@ -7,9 +7,15 @@ namespace EmployeeManagement.Models
 {
     public class DepartmentImplementation : IDepartmentRepository
     {
-        IEnumerable<Department> IDepartmentRepository.GetDepartments()
+        private readonly AppDbContext appDbContext;
+
+        public DepartmentImplementation(AppDbContext appDbContext)
         {
-            throw new NotImplementedException();
+            this.appDbContext = appDbContext;
+        }
+        public IEnumerable<Department> GetDepartments()
+        {
+            return appDbContext.Departments.ToList();
         }
     }
 }
