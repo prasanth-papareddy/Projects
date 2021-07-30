@@ -29,6 +29,28 @@ namespace EmployeeManagement.Models
                 .Entity<Employee>()
                 .Property(e => e.Gender)
                 .HasConversion<string>();
+
+
+            modelBuilder.Entity<Department>().HasData(
+
+                new Department
+                {
+                    DepartmentId =1,
+                    DepartmentName = "HR"
+                },
+                
+                new Department
+                {
+                    DepartmentId =2,
+                    DepartmentName = "IT"
+                },
+                new Department
+                {
+                    DepartmentId =3,
+                    DepartmentName = "Dev"
+                }
+                );
+
         }
     }
 }

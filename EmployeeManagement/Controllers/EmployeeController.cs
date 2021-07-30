@@ -17,12 +17,13 @@ namespace EmployeeManagement.Controllers
         public EmployeeController(IEmployeeRepository employeeRepository , IDepartmentRepository departmentRepository)
         {
             this.employeeRepository = employeeRepository;
-            this.employeeRepository = employeeRepository;
+            this.departmentRepository = departmentRepository;
         }
         
         [HttpGet]
         public IActionResult Create()
-        {            
+        {      
+            
             return View();
         }
 
