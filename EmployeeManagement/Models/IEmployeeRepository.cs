@@ -15,5 +15,7 @@ namespace EmployeeManagement.Models
 
         Employee RemoveEmployee(int Id);
 
+        Employee UpdateEmployee(Employee employee);
+
     }
 }

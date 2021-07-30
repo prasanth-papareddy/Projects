@@ -25,9 +25,7 @@ namespace EmployeeManagement
                options.UseSqlServer(@"Server=PRASANTHREDDY\PRASANTHREDDY; Database=EmployeeManagement; User Id=sa; Password=prasanthreddy;")
             );
             services.AddScoped<IDepartmentRepository, DepartmentImplementation>();
-            services.AddScoped<IEmployeeRepository, EmployeeImplementation>();
-
-            services.AddDirectoryBrowser();
+            services.AddScoped<IEmployeeRepository, EmployeeImplementation>();          
 
         }
 
@@ -48,11 +46,16 @@ namespace EmployeeManagement
                 RequestPath = ""
             });
 
-            app.UseRouting();
+            app.UseRouting();            
 
-            
-
-            app.UseMvcWithDefaultRoute();
+            //app.UseMvcWithDefaultRoute();
+           
+            app.UseMvc(routes =>
+            {                
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Employee}/{action=List}/{id?}");
+            });
 
             //app.UseEndpoints(endpoints =>
             //{

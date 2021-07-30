@@ -1,0 +1,20 @@
+﻿@model IEnumerable<EmployeeManagement.Models.Employee>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+<div class="card-deck">
+    @foreach (var employee in Model)
+    {
+        <div class="card border border-success shadow-0 mb-3" style="max-width: 18rem;">
+            <div class="card-header bg-transparent border-success"><h5 class="card-title">Employee</h5></div>
+            <div class="card-body text-success">
+                <h5 class="card-title">@employee.Name</h5>                
+            </div>
+            <div class="card-footer bg-transparent border-success">
+                <a asp-controller="Employee" asp-action="Details" asp-route-Id="@employee.Id" class="btn btn-outline-success">See Details</a>
+                <a asp-controller="Employee" asp-action="Update" asp-route-Id="@employee.Id" class="btn btn-outline-primary">Edit</a>
+                <a asp-controller="Employee" asp-action="Delete" asp-route-Id="@employee.Id" class="btn btn-outline-danger m-1">Delete</a>
+            </div>
+        </div>       
+    }
+</div>

@@ -72,3 +72,10 @@ E:\Projects\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.RazorT
 E:\Projects\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.Views.pdb
 E:\Projects\EmployeeManagement\bin\Debug\netcoreapp3.1\libman.json
 E:\Projects\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Employee\Create.cshtml.g.cs
+E:\Projects\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
+E:\Projects\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\_ViewStart.cshtml.g.cs
+E:\Projects\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
+E:\Projects\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Employee\Update.cshtml.g.cs
+E:\Projects\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Employee\Details.cshtml.g.cs
+E:\Projects\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Employee\List.cshtml.g.cs
+E:\Projects\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Employee\View.cshtml.g.cs

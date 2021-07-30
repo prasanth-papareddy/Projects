@@ -21,5 +21,14 @@ namespace EmployeeManagement.Models
         public DbSet<Role> Roles { get; set; }
 
         public DbSet<Project> Projects { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder
+                .Entity<Employee>()
+                .Property(e => e.Gender)
+                .HasConversion<string>();
+        }
     }
 }
