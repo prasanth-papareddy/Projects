@@ -22,9 +22,8 @@ namespace EmployeeManagement.Controllers
         
         [HttpGet]
         public IActionResult Create()
-        {
-            EmployeeCreateViewModel employee = new  EmployeeCreateViewModel();            
-            return View(employee);
+        {            
+            return View();
         }
 
         [HttpPost]
