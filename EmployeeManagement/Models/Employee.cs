@@ -25,7 +25,10 @@ namespace EmployeeManagement.Models
         public int DepartmentId { get; set; }
 
         public virtual Department Department { get; set; }
-        public Role Role { get; set; }
+
+        [ForeignKey("Role")]
+        public int RoleId { get; set; }
+        public virtual Role Role { get; set; }
 
         public DateTime Created { get; set; }
 

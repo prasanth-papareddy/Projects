@@ -1,0 +1,24 @@
+﻿@model EmployeeManagement.Models.Department;
+
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 align-content-center">
+
+        <form asp-controller="Department" asp-action="Create" method="post">
+
+            <div class="form-group row">
+                <label asp-for="DepartmentName" class="col-sm-5 col-form-label"></label>
+                <div class="col-sm-7">
+                    <input asp-for="DepartmentName" class="form-control" />
+                    <span asp-validation-for="DepartmentName" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <button type="submit" class="btn btn-outline-primary">Create</button>
+            <a asp-controller="Department" asp-action="GetDepartments" class="btn btn-outline-success">Back</a>
+        </form>
+        
+    </div>
+     
+    <div class="col-sm-3"></div>
+</div>

@@ -18,9 +18,12 @@ namespace EmployeeManagement.ViewModels
 
         [Required(ErrorMessage ="Please select Gender")]
         public Gender? Gender { get; set; }
-        
-        public IEnumerable<Department> Departments { get; set; }
 
         public int Department { get; set; }
+        public IEnumerable<Department> Departments { get; set; }        
+
+        public int Role { get; set; }
+
+        public IEnumerable<Role> Roles { get; set; }
     }
 }

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<EmployeeManagement.Models.Employee>
+
+<div class="row">
+    <div class="col-sm-12">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr class="text-center">
+                    <th>Employee Id</th>
+                    <th>Employee Name</th>
+                    <th>Get Employee</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var employee in Model)
+                {
+                <tr class="text-center">
+                    <td>@employee.Id</td>
+                    <td>@employee.Name</td>
+                    <td><a asp-controller="Employee" asp-action="GetEmployee" asp-route-Id="@employee.Id" class="btn btn-outline-primary">Details</a></td>
+                    <td><a asp-controller="Employee" asp-action="Update" asp-route-Id="@employee.Id" class="btn btn-outline-success">Update</a></td>
+                    <td><a asp-controller="Employee" asp-action="Delete" asp-route-Id="@employee.Id" class="btn btn-outline-danger">Delete</a></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        <a asp-controller="Employee" asp-action="Create" class="btn btn-outline-success">Create</a>
+    </div>
+</div>

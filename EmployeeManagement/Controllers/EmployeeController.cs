@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using EmployeeManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 using EmployeeManagement.ViewModels;
+using EmployeeManagement.RepositoryModels;
 
 namespace EmployeeManagement.Controllers
 {
@@ -14,10 +15,13 @@ namespace EmployeeManagement.Controllers
 
         private readonly IDepartmentRepository departmentRepository;
 
-        public EmployeeController(IEmployeeRepository employeeRepository , IDepartmentRepository departmentRepository)
+        private readonly IRoleRepository roleRepository;
+
+        public EmployeeController(IEmployeeRepository employeeRepository , IDepartmentRepository departmentRepository , IRoleRepository roleRepository)
         {
             this.employeeRepository = employeeRepository;
             this.departmentRepository = departmentRepository;
+            this.roleRepository = roleRepository;
         }
         
         [HttpGet]
@@ -25,11 +29,12 @@ namespace EmployeeManagement.Controllers
         {
             EmployeeCreateViewModel employeeCreateViewModel = new EmployeeCreateViewModel();
             employeeCreateViewModel.Departments = departmentRepository.GetDepartments();
+            employeeCreateViewModel.Roles = roleRepository.GetRoles();
             return View(employeeCreateViewModel);
         }
 
         [HttpPost]
-        public IActionResult Create(EmployeeCreateViewModel employeeCreateViewModel)
+        public RedirectToActionResult Create(EmployeeCreateViewModel employeeCreateViewModel)
         {
             if(ModelState.IsValid)
             {
@@ -40,12 +45,13 @@ namespace EmployeeManagement.Controllers
                 employee.Created = DateTime.Now;
                 employee.Updated = DateTime.Now;
                 employee.DepartmentId = employeeCreateViewModel.Department;
+                employee.RoleId = employeeCreateViewModel.Role;
                Employee createdemployee =  employeeRepository.CreateEmployee(employee);
 
-               return View("View" , createdemployee);
+               return RedirectToAction("GetEmployees", createdemployee);
             }
 
-            return View();
+            return RedirectToAction("Create");
         }
 
 
@@ -72,10 +78,10 @@ namespace EmployeeManagement.Controllers
                 Employee UpdatedEmployee = employeeRepository.UpdateEmployee(employee);
                 
             }
-            return RedirectToAction("List");
+            return RedirectToAction("GetEmployees");
         }
 
-        public IActionResult List()
+        public IActionResult GetEmployees()
         {
             List<Employee> employees = new List<Employee>();
             employees = employeeRepository.GetAllEmployees();
@@ -83,7 +89,7 @@ namespace EmployeeManagement.Controllers
 
         }
 
-        public IActionResult Details(int Id)
+        public IActionResult GetEmployee(int Id)
         {
             Employee employee = new Employee();
             employee = employeeRepository.GetEmployeebyId(Id);
@@ -95,7 +101,7 @@ namespace EmployeeManagement.Controllers
         public RedirectToActionResult Delete(int Id)
         {
             employeeRepository.RemoveEmployee(Id);
-            return RedirectToAction("List");
+            return RedirectToAction("GetEmployees");
         }
 
        

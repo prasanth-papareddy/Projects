@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using EmployeeManagement.Models;
+using EmployeeManagement.RepositoryModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -25,7 +25,8 @@ namespace EmployeeManagement
                options.UseSqlServer(@"Server=PRASANTHREDDY\PRASANTHREDDY; Database=EmployeeManagement; User Id=sa; Password=prasanthreddy;")
             );
             services.AddScoped<IDepartmentRepository, DepartmentImplementation>();
-            services.AddScoped<IEmployeeRepository, EmployeeImplementation>();          
+            services.AddScoped<IEmployeeRepository, EmployeeImplementation>();
+            services.AddScoped<IRoleRepository, RoleImplementation>();
 
         }
 
@@ -54,7 +55,7 @@ namespace EmployeeManagement
             {                
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Employee}/{action=List}/{id?}");
+                    template: "{controller=Employee}/{action=GetEmployees}/{id?}");
             });
 
             //app.UseEndpoints(endpoints =>
