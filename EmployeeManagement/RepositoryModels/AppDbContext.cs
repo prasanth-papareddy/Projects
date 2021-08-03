@@ -1,13 +1,15 @@
-﻿using EmployeeManagement.Models;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using EmployeeManagement.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace EmployeeManagement.RepositoryModels
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext
     {
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
@@ -26,6 +28,7 @@ namespace EmployeeManagement.RepositoryModels
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder
                 .Entity<Employee>()
                 .Property(e => e.Gender)

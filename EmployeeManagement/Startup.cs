@@ -7,6 +7,7 @@ using EmployeeManagement.RepositoryModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -24,10 +25,14 @@ namespace EmployeeManagement
             services.AddDbContextPool<AppDbContext>(options =>
                options.UseSqlServer(@"Server=PRASANTHREDDY\PRASANTHREDDY; Database=EmployeeManagement; User Id=sa; Password=prasanthreddy;")
             );
+
+            services.AddIdentity<IdentityUser,IdentityRole>()
+                  .AddEntityFrameworkStores<AppDbContext>();
+
             services.AddScoped<IDepartmentRepository, DepartmentImplementation>();
             services.AddScoped<IEmployeeRepository, EmployeeImplementation>();
             services.AddScoped<IRoleRepository, RoleImplementation>();
-
+            services.AddScoped<IProjectRepository,ProjectImplementation>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +51,8 @@ namespace EmployeeManagement
                 Path.Combine(System.IO.Directory.GetCurrentDirectory(), "wwwroot")),
                 RequestPath = ""
             });
+
+            app.UseAuthentication();
 
             app.UseRouting();            
 

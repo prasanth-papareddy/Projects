@@ -8,8 +8,7 @@
                 <tr class="text-center">
                     <th>Department Id</th>
                     <th>Department Name</th>
-                    <th>Update</th>
-                    <th>Delete</th>
+                    <th>Actions</th>                    
                 </tr>
             </thead>
             <tbody>
@@ -18,8 +17,8 @@
                     <tr class="text-center">
                         <td>@d.DepartmentId</td>
                         <td>@d.DepartmentName</td>
-                        <td><a asp-controller="Department" asp-action="Update" asp-route-DepartmentId="@d.DepartmentId" class="btn btn-outline-primary">Update</a></td>
-                        <td><a asp-controller="Department" asp-action="Delete" asp-route-DepartmentId="@d.DepartmentId" class="btn btn-outline-danger">Delete</a></td>
+                        <td><a asp-controller="Department" asp-action="Update" asp-route-DepartmentId="@d.DepartmentId" class="btn btn-outline-primary"><i class="fas fa-edit">Edit</i></a>
+                        <a asp-controller="Department" asp-action="Delete" asp-route-DepartmentId="@d.DepartmentId" class="btn btn-outline-danger"><i class="far fa-trash-alt">Delete</i></a></td>
                     </tr>
                 }
             </tbody>

@@ -1,12 +1,12 @@
 ﻿@model EmployeeManagement.Models.Employee
 
 
-<div class="card border border-success shadow-0 mb-3" style="max-width: 18rem;">
+@*<div class="card border border-success shadow-0 mb-3" style="max-width: 18rem;">
     <div class="card-header bg-transparent border-success"><h5 class="card-title">Employee Details</h5></div>
     <div class="card-body text-success">
         <h5 class="card-title">@Model.Name</h5>
         <p class="card-text">
-           EmailId: @Model.EmailId
+            EmailId: @Model.EmailId
         </p>
         <p class="card-text">
             Gender: @Model.Gender
@@ -14,11 +14,28 @@
         <p class="card-text">
             Created On: @Model.Created
         </p>
-        
+
     </div>
     <div class="card-footer bg-transparent border-success">
         <a asp-controller="Employee" asp-action="Update" asp-route-Id="@Model.Id" class="btn btn-outline-primary">Edit</a>
         <a asp-controller="Employee" asp-action="Delete" asp-route-Id="@Model.Id" class="btn btn-outline-danger m-1">Delete</a>
         <a asp-controller="Employee" asp-action="GetEmployees" class="btn btn-outline-secondary">Back</a>
+    </div>
+</div>*@
+
+<div class="card-deck">    
+    <div class="card m-3">
+        <div class="card-header">
+            <h3>@Model.Name</h3>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 m-1"><img class="card-img-top" src="~/Images/ProfileImage.png" style="width:200px;height:200px" /><h4 class="text-center">@Model.EmailId</h4><br /><h4 class="text-center">@Model.Gender</h4></div>
+            <div class="col-sm-12 m-1"><h4 class="text-center">Created On: @Model.Created</h4><br/><h4 class="text-center">Last Updated On: @Model.Updated</h4></div>
+        </div>
+        <div class="card-footer text-center">
+            <a asp-controller="Employee" asp-action="Update" asp-route-Id="@Model.Id" class="btn btn-outline-primary">Edit</a>
+            <a asp-controller="Employee" asp-action="Delete" asp-route-Id="@Model.Id" class="btn btn-outline-danger m-1">Delete</a>
+            <a asp-controller="Employee" asp-action="GetEmployees" class="btn btn-outline-secondary">Back</a>
+        </div>
     </div>
 </div>

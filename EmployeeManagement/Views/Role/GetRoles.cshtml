@@ -8,8 +8,7 @@
                 <tr class="text-center">
                     <th>Role Id</th>
                     <th>Role Name</th>
-                    <th>Update</th>
-                    <th>Delete</th>
+                    <th>Actions</th>                    
                 </tr>
             </thead>
             <tbody>
@@ -18,8 +17,8 @@
                     <tr class="text-center">
                         <td>@d.RoleId</td>
                         <td>@d.Name</td>
-                        <td><a asp-controller="Role" asp-action="Update" asp-route-RoleId="@d.RoleId" class="btn btn-outline-primary">Update</a></td>
-                        <td><a asp-controller="Role" asp-action="Delete" asp-route-RoleId="@d.RoleId" class="btn btn-outline-danger">Delete</a></td>
+                        <td><a asp-controller="Role" asp-action="Update" asp-route-RoleId="@d.RoleId" class="btn btn-outline-primary"><i class="fas fa-edit">Edit</i></a>
+                        <a asp-controller="Role" asp-action="Delete" asp-route-RoleId="@d.RoleId" class="btn btn-outline-danger"><i class="far fa-trash-alt">Delete</i></a></td>
                     </tr>
                 }
             </tbody>

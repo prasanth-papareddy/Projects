@@ -7,9 +7,7 @@
                 <tr class="text-center">
                     <th>Employee Id</th>
                     <th>Employee Name</th>
-                    <th>Get Employee</th>
-                    <th>Update</th>
-                    <th>Delete</th>
+                    <th>Actions</th>                    
                 </tr>
             </thead>
             <tbody>
@@ -18,9 +16,9 @@
                 <tr class="text-center">
                     <td>@employee.Id</td>
                     <td>@employee.Name</td>
-                    <td><a asp-controller="Employee" asp-action="GetEmployee" asp-route-Id="@employee.Id" class="btn btn-outline-primary">Details</a></td>
-                    <td><a asp-controller="Employee" asp-action="Update" asp-route-Id="@employee.Id" class="btn btn-outline-success">Update</a></td>
-                    <td><a asp-controller="Employee" asp-action="Delete" asp-route-Id="@employee.Id" class="btn btn-outline-danger">Delete</a></td>
+                    <td><a asp-controller="Employee" asp-action="GetEmployee" asp-route-Id="@employee.Id" class="btn btn-outline-primary"><i class="far fa-eye">Get Details</i></a>
+                    <a asp-controller="Employee" asp-action="Update" asp-route-Id="@employee.Id" class="btn btn-outline-success"><i class="fas fa-edit">Edit</i></a>
+                    <a asp-controller="Employee" asp-action="Delete" asp-route-Id="@employee.Id" class="btn btn-outline-danger"><i class="far fa-trash-alt">Delete</i></a></td>
                 </tr>
                 }
             </tbody>

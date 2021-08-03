@@ -22,11 +22,13 @@ namespace EmployeeManagement.Models
         public Gender? Gender { get; set; }
 
         [ForeignKey("Department")]
+        [Required(ErrorMessage = "Please Select Department")]
         public int DepartmentId { get; set; }
 
         public virtual Department Department { get; set; }
 
         [ForeignKey("Role")]
+        [Required(ErrorMessage ="Please Select Role")]
         public int RoleId { get; set; }
         public virtual Role Role { get; set; }
 

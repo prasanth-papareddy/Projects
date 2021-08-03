@@ -58,22 +58,34 @@ namespace EmployeeManagement.Controllers
         [HttpGet]
         public IActionResult Update(int Id)
         {
-            Employee employee = employeeRepository.GetEmployeebyId(Id);            
-            return View(employee);
+            Employee employee = employeeRepository.GetEmployeebyId(Id);
+            UpdateEmployeeViewModel updateEmployeeViewModel = new UpdateEmployeeViewModel();
+            updateEmployeeViewModel.Id = employee.Id;
+            updateEmployeeViewModel.Name = employee.Name;
+            updateEmployeeViewModel.EmailId = employee.EmailId;
+            updateEmployeeViewModel.Gender = employee.Gender;
+            updateEmployeeViewModel.DepartmentId = employee.DepartmentId;
+            updateEmployeeViewModel.Departments = departmentRepository.GetDepartments();
+            updateEmployeeViewModel.RoleId = employee.RoleId;
+            updateEmployeeViewModel.Roles = roleRepository.GetRoles();
+
+            return View(updateEmployeeViewModel);
         }
 
         [HttpPost]
-        public RedirectToActionResult Update(Employee emp)
+        public RedirectToActionResult Update(UpdateEmployeeViewModel updateEmployeeViewModel)
         {
             if (ModelState.IsValid)
             {
                 Employee employee = new Employee();
-                employee.Id = emp.Id;
-                employee.Name = emp.Name;
-                employee.EmailId = emp.EmailId;
-                employee.Gender = emp.Gender.Value;
-                employee.Created = emp.Created;
+                employee.Id = updateEmployeeViewModel.Id;
+                employee.Name = updateEmployeeViewModel.Name;
+                employee.EmailId = updateEmployeeViewModel.EmailId;
+                employee.Gender = updateEmployeeViewModel.Gender.Value;
+                employee.Created = updateEmployeeViewModel.Created;
                 employee.Updated = DateTime.Now;
+                employee.DepartmentId = updateEmployeeViewModel.DepartmentId;
+                employee.RoleId = updateEmployeeViewModel.RoleId;
 
                 Employee UpdatedEmployee = employeeRepository.UpdateEmployee(employee);
                 
