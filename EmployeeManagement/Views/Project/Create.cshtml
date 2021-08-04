@@ -1,1 +1,31 @@
-﻿
+﻿@model Project
+
+<form asp-controller="Project" asp-action="Create" method="post">
+    <div class="form-group row">
+        <label asp-for="Name" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group row">
+        <label asp-for="Domain" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="Domain" class="form-control" />
+            <span asp-validation-for="Domain" class="text-danger"></span>
+        </div>
+    </div>
+
+    <br />
+    <div class="form-group row">
+        <label asp-for="Budget" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="Budget" class="form-control" />
+            <span asp-validation-for="Budget" class="text-danger"></span>
+        </div>
+    </div>
+    <br/>
+    <button type="submit" class="btn btn-outline-primary">Create</button>
+    <a asp-controller="Project" asp-action="GetProjects" class="btn btn-outline-secondary">Back</a>
+</form>

@@ -7,6 +7,9 @@
     <link href="~/bootstrap/css/bootstrap-grid.css" rel="stylesheet" />
     <link href="~/bootstrap/css/bootstrap-reboot.css" rel="stylesheet" />
     <link href="~/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    @using Microsoft.AspNetCore.Identity
+    
+    @inject SignInManager<IdentityUser>  signInManager 
 </head>
 <body>
     <div class="container-fluid p-0">
@@ -22,7 +25,26 @@
                     <li class="nav-item"><a class="nav-link" style="font-size:28px; font-family:'Times New Roman'" asp-action="GetDepartments" asp-controller="Department">Departments</a></li>
                     <li class="nav-item"><a class="nav-link" style="font-size:28px; font-family:'Times New Roman'" asp-action="GetRoles" asp-controller="Role">Roles</a></li>
                     <li class="nav-item"><a class="nav-link" style="font-size:28px; font-family:'Times New Roman'" asp-action="GetEmployees" asp-controller="Employee">Employees</a></li>
-                </ul>                
+                    <li class="nav-item"><a class="nav-link" style="font-size:28px; font-family:'Times New Roman'" asp-action="GetProjects" asp-controller="Project">Projects</a></li>
+                </ul> 
+                
+                <ul class="navbar-nav m-auto">
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                    <li class="nav-item">
+                        <form method="post" asp-action="Logout" asp-controller="Account">
+                            <button type="submit" style="width:auto"
+                            class="nav-link btn btn-link py-0">
+                        Logout @User.Identity.Name</button>
+                        </form>
+                    </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item"><a class="nav-link" style="font-size:28px; font-family:'Times New Roman'" asp-action="Login" asp-controller="Account">SignIn</a></li>
+                        <li class="nav-item"><a class="nav-link" style="font-size:28px; font-family:'Times New Roman'" asp-action="Register" asp-controller="Account">Register</a></li>
+                    }
+                </ul>
             </div>
         </nav>
 

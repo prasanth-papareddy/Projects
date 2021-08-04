@@ -6,6 +6,7 @@ using EmployeeManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 using EmployeeManagement.ViewModels;
 using EmployeeManagement.RepositoryModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeManagement.Controllers
 {
@@ -92,7 +93,7 @@ namespace EmployeeManagement.Controllers
             }
             return RedirectToAction("GetEmployees");
         }
-
+        [AllowAnonymous]
         public IActionResult GetEmployees()
         {
             List<Employee> employees = new List<Employee>();

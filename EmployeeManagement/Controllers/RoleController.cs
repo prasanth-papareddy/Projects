@@ -69,6 +69,5 @@ namespace EmployeeManagement.Controllers
             return View(roles);
         }
 
-
     }
 }
