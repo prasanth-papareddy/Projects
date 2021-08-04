@@ -18,5 +18,8 @@ namespace EmployeeManagement.RepositoryModels
 
         Project GetProject(int Id);
         IEnumerable<ProjectEmployee> GetEmployees(int Id);
+
+        void AddEmployee(ProjectEmployee projectEmployee);
+
     }
 }

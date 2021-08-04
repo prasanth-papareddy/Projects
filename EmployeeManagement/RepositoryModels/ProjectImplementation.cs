@@ -53,5 +53,11 @@ namespace EmployeeManagement.RepositoryModels
                 Include(e => e.Project).
                 Where(e => e.ProjectId == Id).ToList();                
         }
+
+        public void AddEmployee(ProjectEmployee projectEmployee)
+        {
+            appDbContext.ProjectEmployees.Add(projectEmployee);
+            appDbContext.SaveChanges();            
+        }
     }
 }

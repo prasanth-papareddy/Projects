@@ -8,8 +8,9 @@ namespace EmployeeManagement.ViewModels
 {
     public class ProjectAddEmployeesViewModel
     {
-        public int ProjectId { get; set; }
+        public int EmployeeId { get; set; }
 
-        public IEnumerable<Employee> Employees { get; set; }
+        public string EmployeeName { get; set; }
+        public bool IsSelected { get; set; }
     }
 }

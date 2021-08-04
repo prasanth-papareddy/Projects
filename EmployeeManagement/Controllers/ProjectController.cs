@@ -14,7 +14,7 @@ namespace EmployeeManagement.Controllers
         private readonly IProjectRepository projectRepository;
 
         private readonly IEmployeeRepository employeeRepository;
-        public ProjectController(IProjectRepository projectRepository , IEmployeeRepository employeeRepository)
+        public ProjectController(IProjectRepository projectRepository, IEmployeeRepository employeeRepository)
         {
             this.projectRepository = projectRepository;
             this.employeeRepository = employeeRepository;
@@ -32,7 +32,7 @@ namespace EmployeeManagement.Controllers
             if (ModelState.IsValid)
             {
                 projectRepository.CreateProject(project);
-                return RedirectToAction("GetProjects","Project");
+                return RedirectToAction("GetProjects", "Project");
             }
             return View();
         }
@@ -68,7 +68,7 @@ namespace EmployeeManagement.Controllers
                 project.TentativeStartDate = projectUpdateViewModel.TentativeStartDate;
                 project.TentativeEndDate = projectUpdateViewModel.TentativeEndDate;
                 project.ActualStartDate = projectUpdateViewModel.ActualStartDate;
-                project.ActualEndDate= projectUpdateViewModel.ActualEndDate;
+                project.ActualEndDate = projectUpdateViewModel.ActualEndDate;
 
                 projectRepository.UpdateProject(project);
                 return RedirectToAction("GetProjects");
@@ -91,7 +91,7 @@ namespace EmployeeManagement.Controllers
 
         public IActionResult GetProject(int Id)
         {
-                     
+
             ProjectGetProjectViewModel projectGetProjectViewModel = new ProjectGetProjectViewModel();
             projectGetProjectViewModel.Project = projectRepository.GetProject(Id);
             projectGetProjectViewModel.ProjectEmployees = projectRepository.GetEmployees(Id);
@@ -102,11 +102,40 @@ namespace EmployeeManagement.Controllers
         [HttpGet]
         public IActionResult AddEmployees(int Id)
         {
-            ProjectAddEmployeesViewModel projectAddEmployeesViewModel = new ProjectAddEmployeesViewModel();
-            projectAddEmployeesViewModel.ProjectId = Id;
-            projectAddEmployeesViewModel.Employees = employeeRepository.GetAllEmployees();
-            return View(projectAddEmployeesViewModel);
-        }        
+            ViewBag.ProjectId = Id;
+            var model = new List<ProjectAddEmployeesViewModel>();
+            List<Employee> employees = employeeRepository.GetAllEmployees();
+            foreach (var Employees in employees)
+            {
+                var projectAddEmployeesViewModel = new ProjectAddEmployeesViewModel
+                {
+                    EmployeeId = Employees.Id,
+                    EmployeeName = Employees.Name
+                };
+
+                model.Add(projectAddEmployeesViewModel);
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult AddEmployees(List<ProjectAddEmployeesViewModel> model, int ProjectId)
+        {
+            for (int i = 0; i < model.Count; i++)
+            {
+                if (model[i].IsSelected)
+                {
+                    ProjectEmployee projectEmployee = new ProjectEmployee();
+                    projectEmployee.EmployeeId = model[i].EmployeeId;
+                    projectEmployee.ProjectId = Convert.ToInt32(ProjectId);
+
+                    projectRepository.AddEmployee(projectEmployee);
+                }
+            }
+            return View(model);
+        }
+
+
 
     }
 }
