@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace EmployeeManagement.Models
 {
     public class Project
-    {
+    {     
         public int Id { get; set; }
 
         [Required(ErrorMessage ="Please Enter Project Name")]
@@ -34,6 +34,8 @@ namespace EmployeeManagement.Models
         public DateTime ActualStartDate { get; set; }
 
         public DateTime ActualEndDate { get; set; }
+
+        public IList<ProjectEmployee> ProjectEmployees { get; set; }
 
 
     }

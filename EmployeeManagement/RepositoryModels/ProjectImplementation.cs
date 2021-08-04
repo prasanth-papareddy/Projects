@@ -1,4 +1,5 @@
 ﻿using EmployeeManagement.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,8 +44,14 @@ namespace EmployeeManagement.RepositoryModels
         }
 
         public Project GetProject(int Id)
-        {
+        {            
             return appDbContext.Projects.FirstOrDefault(e => e.Id == Id);
+        }        
+        public IEnumerable<ProjectEmployee> GetEmployees(int Id)
+        {
+            return appDbContext.ProjectEmployees.Include(e => e.Employee).
+                Include(e => e.Project).
+                Where(e => e.ProjectId == Id).ToList();                
         }
     }
 }

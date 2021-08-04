@@ -12,9 +12,12 @@ namespace EmployeeManagement.Controllers
     public class ProjectController : Controller
     {
         private readonly IProjectRepository projectRepository;
-        public ProjectController(IProjectRepository projectRepository)
+
+        private readonly IEmployeeRepository employeeRepository;
+        public ProjectController(IProjectRepository projectRepository , IEmployeeRepository employeeRepository)
         {
             this.projectRepository = projectRepository;
+            this.employeeRepository = employeeRepository;
         }
 
         [HttpGet]
@@ -88,8 +91,22 @@ namespace EmployeeManagement.Controllers
 
         public IActionResult GetProject(int Id)
         {
-            Project Project = projectRepository.GetProject(Id);
-            return View(Project);
+                     
+            ProjectGetProjectViewModel projectGetProjectViewModel = new ProjectGetProjectViewModel();
+            projectGetProjectViewModel.Project = projectRepository.GetProject(Id);
+            projectGetProjectViewModel.ProjectEmployees = projectRepository.GetEmployees(Id);
+            return View(projectGetProjectViewModel);
         }
+
+
+        [HttpGet]
+        public IActionResult AddEmployees(int Id)
+        {
+            ProjectAddEmployeesViewModel projectAddEmployeesViewModel = new ProjectAddEmployeesViewModel();
+            projectAddEmployeesViewModel.ProjectId = Id;
+            projectAddEmployeesViewModel.Employees = employeeRepository.GetAllEmployees();
+            return View(projectAddEmployeesViewModel);
+        }        
+
     }
 }

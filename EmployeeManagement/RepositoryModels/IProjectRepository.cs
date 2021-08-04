@@ -17,5 +17,6 @@ namespace EmployeeManagement.RepositoryModels
         IEnumerable<Project> DeleteProject(int Id);
 
         Project GetProject(int Id);
+        IEnumerable<ProjectEmployee> GetEmployees(int Id);
     }
 }

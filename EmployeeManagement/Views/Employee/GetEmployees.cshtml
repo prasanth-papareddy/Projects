@@ -4,21 +4,25 @@
     <div class="col-sm-12">
         <table class="table table-striped table-bordered">
             <thead>
-                <tr class="text-center">
-                    <th>Employee Id</th>
+                <tr class="text-center">                    
                     <th>Employee Name</th>
-                    <th>Actions</th>                    
+                    <th>Department</th>
+                    <th>Role</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var employee in Model)
                 {
-                <tr class="text-center">
-                    <td>@employee.Id</td>
+                <tr class="text-center">                    
                     <td>@employee.Name</td>
-                    <td><a asp-controller="Employee" asp-action="GetEmployee" asp-route-Id="@employee.Id" class="btn btn-outline-primary"><i class="far fa-eye">Get Details</i></a>
-                    <a asp-controller="Employee" asp-action="Update" asp-route-Id="@employee.Id" class="btn btn-outline-success"><i class="fas fa-edit">Edit</i></a>
-                    <a asp-controller="Employee" asp-action="Delete" asp-route-Id="@employee.Id" class="btn btn-outline-danger"><i class="far fa-trash-alt">Delete</i></a></td>
+                    <td>@(employee.Department?.DepartmentName ?? "N/A")</td>
+                    <td>@(employee.Role?.Name ?? "N/A")</td>
+                    <td>
+                        <a asp-controller="Employee" asp-action="GetEmployee" asp-route-Id="@employee.Id" class="btn btn-outline-primary"><i class="far fa-eye">Get Details</i></a>
+                        <a asp-controller="Employee" asp-action="Update" asp-route-Id="@employee.Id" class="btn btn-outline-success"><i class="fas fa-edit">Edit</i></a>
+                        <a asp-controller="Employee" asp-action="Delete" asp-route-Id="@employee.Id" class="btn btn-outline-danger"><i class="far fa-trash-alt">Delete</i></a>
+                    </td>
                 </tr>
                 }
             </tbody>

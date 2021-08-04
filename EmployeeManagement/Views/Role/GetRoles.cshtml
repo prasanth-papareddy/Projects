@@ -5,8 +5,7 @@
     <div class="col-sm-6">
         <table class="table table-striped table-bordered">
             <thead>
-                <tr class="text-center">
-                    <th>Role Id</th>
+                <tr class="text-center">                    
                     <th>Role Name</th>
                     <th>Actions</th>                    
                 </tr>
@@ -14,8 +13,7 @@
             <tbody>
                 @foreach (var d in Model)
                 {
-                    <tr class="text-center">
-                        <td>@d.RoleId</td>
+                    <tr class="text-center">                        
                         <td>@d.Name</td>
                         <td><a asp-controller="Role" asp-action="Update" asp-route-RoleId="@d.RoleId" class="btn btn-outline-primary"><i class="fas fa-edit">Edit</i></a>
                         <a asp-controller="Role" asp-action="Delete" asp-route-RoleId="@d.RoleId" class="btn btn-outline-danger"><i class="far fa-trash-alt">Delete</i></a></td>

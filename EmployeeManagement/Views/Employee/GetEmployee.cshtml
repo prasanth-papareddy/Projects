@@ -5,11 +5,17 @@
 <div class="card-deck">    
     <div class="card m-3">
         <div class="card-header">
-            <h3>@Model.Name</h3>
+            <h4>@Model.Name</h4>
         </div>
         <div class="row">
-            <div class="col-sm-12 m-1"><img class="card-img-top" src="~/Images/ProfileImage.png" style="width:200px;height:200px" /><h4 class="text-center">@Model.EmailId</h4><br /><h4 class="text-center">@Model.Gender</h4></div>
-            <div class="col-sm-12 m-1"><h4 class="text-center">Created On: @Model.Created</h4><br/><h4 class="text-center">Last Updated On: @Model.Updated</h4></div>
+            <div class="col-sm-12 m-1">
+                <img class="card-img-top" src="~/Images/ProfileImage.png" style="width:200px;height:200px" />
+                <h6 class="text-center">Email: @Model.EmailId</h6><br />
+                <h6 class="text-center">Gender: @Model.Gender</h6><br />
+                <h6 class="text-center">Department: @Model.Department.DepartmentName</h6><br />
+                <h6 class="text-center">Role: @Model.Role.Name</h6>
+            </div>
+            <div class="col-sm-12 m-1"><h6 class="text-center">Created On: @Model.Created</h6><br/><h6 class="text-center">Last Updated On: @Model.Updated</h6></div>
         </div>
         <div class="card-footer text-center">
             <a asp-controller="Employee" asp-action="Update" asp-route-Id="@Model.Id" class="btn btn-outline-primary">Edit</a>

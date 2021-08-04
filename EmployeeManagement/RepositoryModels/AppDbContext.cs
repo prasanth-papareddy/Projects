@@ -25,6 +25,7 @@ namespace EmployeeManagement.RepositoryModels
 
         public DbSet<Project> Projects { get; set; }
 
+        public DbSet<ProjectEmployee> ProjectEmployees { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,6 +35,7 @@ namespace EmployeeManagement.RepositoryModels
                 .Property(e => e.Gender)
                 .HasConversion<string>();
 
+            modelBuilder.Entity<ProjectEmployee>().HasKey(sc => new { sc.EmployeeId , sc.ProjectId});
 
             //modelBuilder.Entity<Department>().HasData(
 
@@ -41,19 +43,7 @@ namespace EmployeeManagement.RepositoryModels
             //    {
             //        DepartmentId =1,
             //        DepartmentName = "HR"
-            //    },
-                
-            //    new Department
-            //    {
-            //        DepartmentId =2,
-            //        DepartmentName = "IT"
-            //    },
-            //    new Department
-            //    {
-            //        DepartmentId =3,
-            //        DepartmentName = "Dev"
-            //    }
-            //    );
+            //    });
 
         }
     }

@@ -1,4 +1,5 @@
 ﻿using EmployeeManagement.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace EmployeeManagement.RepositoryModels
         public List<Employee> GetAllEmployees()
         {
             List<Employee> employees = new List<Employee>();
-            employees = appDbContext.Employees.ToList();
+            employees = appDbContext.Employees.Include(x => x.Department).Include(x => x.Role).ToList();           
             return employees;
 
         }
@@ -31,7 +32,8 @@ namespace EmployeeManagement.RepositoryModels
 
         Employee IEmployeeRepository.GetEmployeebyId(int Id)
         {
-            return appDbContext.Employees.FirstOrDefault(e => e.Id == Id);
+            return appDbContext.Employees.Include(x => x.Department).Include(x => x.Role)
+                .FirstOrDefault(e => e.Id == Id);
         }
 
         Employee IEmployeeRepository.RemoveEmployee(int Id)

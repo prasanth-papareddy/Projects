@@ -64,7 +64,6 @@ namespace EmployeeManagement.Controllers
             departmentRepository.DeleteDepartment(DepartmentId);
             return RedirectToAction("GetDepartments");
         }
-
         
         public IActionResult GetDepartments()
         {
