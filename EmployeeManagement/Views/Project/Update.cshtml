@@ -1,4 +1,4 @@
-﻿@model Project;
+﻿@model ProjectUpdateViewModel
 
 <div class="row">
     <div class="col-sm-3"></div>
@@ -20,7 +20,7 @@
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
             </div>
-            <br/>
+            <br />
             <div class="form-group row">
                 <label asp-for="Domain" class="col-sm-5 col-form-label"></label>
                 <div class="col-sm-7">
@@ -36,7 +36,23 @@
                     <span asp-validation-for="Budget" class="text-danger"></span>
                 </div>
             </div>
-            <br/>
+            <br />
+            <div class="form-group row">
+                <label asp-for="TentativeStartDate" class="col-sm-5 col-form-label"></label>
+                <div class="col-sm-7">
+                    <input asp-for="TentativeStartDate" class="form-control" />
+                    <span asp-validation-for="TentativeStartDate" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                <label asp-for="TentativeEndDate" class="col-sm-5 col-form-label"></label>
+                <div class="col-sm-7">
+                    <input asp-for="TentativeEndDate" class="form-control" />
+                    <span asp-validation-for="TentativeEndDate" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
             <button type="submit" class="btn btn-outline-primary">Update</button>
             <a asp-action="GetProjects" asp-controller="Project" class="btn btn-secondary">Back</a>
         </form>

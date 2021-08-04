@@ -25,7 +25,23 @@
             <span asp-validation-for="Budget" class="text-danger"></span>
         </div>
     </div>
-    <br/>
+    <br />
+    <div class="form-group row">
+        <label asp-for="TentativeStartDate" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="TentativeStartDate" class="form-control" />
+            <span asp-validation-for="TentativeStartDate" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group row">
+        <label asp-for="TentativeEndDate" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="TentativeEndDate" class="form-control" />
+            <span asp-validation-for="TentativeEndDate" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
     <button type="submit" class="btn btn-outline-primary">Create</button>
     <a asp-controller="Project" asp-action="GetProjects" class="btn btn-outline-secondary">Back</a>
 </form>

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using EmployeeManagement.RepositoryModels;
 using EmployeeManagement.Models;
+using EmployeeManagement.ViewModels;
 
 namespace EmployeeManagement.Controllers
 {
@@ -36,18 +37,37 @@ namespace EmployeeManagement.Controllers
         [HttpGet]
         public IActionResult Update(int Id)
         {
+
             Project project = projectRepository.GetProject(Id);
-            return View(project);
+            ProjectUpdateViewModel projectUpdateViewModel = new ProjectUpdateViewModel();
+            projectUpdateViewModel.Id = project.Id;
+            projectUpdateViewModel.Name = project.Name;
+            projectUpdateViewModel.Domain = project.Domain;
+            projectUpdateViewModel.Budget = project.Budget;
+            projectUpdateViewModel.TentativeStartDate = project.TentativeStartDate;
+            projectUpdateViewModel.TentativeEndDate = project.TentativeEndDate;
+            projectUpdateViewModel.ActualStartDate = project.ActualStartDate;
+            projectUpdateViewModel.ActualEndDate = project.ActualEndDate;
+            return View(projectUpdateViewModel);
         }
 
 
         [HttpPost]
-        public RedirectToActionResult Update(Project Project)
+        public RedirectToActionResult Update(ProjectUpdateViewModel projectUpdateViewModel)
         {
             if (ModelState.IsValid)
             {
+                Project project = new Project();
+                project.Id = projectUpdateViewModel.Id;
+                project.Name = projectUpdateViewModel.Name;
+                project.Domain = projectUpdateViewModel.Domain;
+                project.Budget = projectUpdateViewModel.Budget;
+                project.TentativeStartDate = projectUpdateViewModel.TentativeStartDate;
+                project.TentativeEndDate = projectUpdateViewModel.TentativeEndDate;
+                project.ActualStartDate = projectUpdateViewModel.ActualStartDate;
+                project.ActualEndDate= projectUpdateViewModel.ActualEndDate;
 
-                projectRepository.UpdateProject(Project);
+                projectRepository.UpdateProject(project);
                 return RedirectToAction("GetProjects");
             }
             return RedirectToAction("Update");
@@ -64,6 +84,12 @@ namespace EmployeeManagement.Controllers
         {
             IEnumerable<Project> Projects = projectRepository.GetProjects();
             return View(Projects);
+        }
+
+        public IActionResult GetProject(int Id)
+        {
+            Project Project = projectRepository.GetProject(Id);
+            return View(Project);
         }
     }
 }

@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EmployeeManagement.Models
+namespace EmployeeManagement.ViewModels
 {
-    public class Project
+    public class ProjectUpdateViewModel
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage ="Please Enter Project Name")]
+        [Required(ErrorMessage = "Please Enter Project Name")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Please Enter Project Domain")]
@@ -18,23 +18,23 @@ namespace EmployeeManagement.Models
         public string Domain { get; set; }
 
         [Required(ErrorMessage = "Please Enter Project Budget")]
-        [DataType(DataType.Currency,ErrorMessage = "Please Enter Project Budget")]
+        [DataType(DataType.Currency)]
         public decimal Budget { get; set; }
 
-        [Required(ErrorMessage ="Please Select Tentative Start Date")]
-        [DataType(DataType.Date, ErrorMessage = "Invalid Start Date")]
-        [Display(Name="Tentative Start Date")]
+        [Required(ErrorMessage = "Please Select Tentative Start Date")]
+        [DataType(DataType.Date)]
+        [Display(Name = "Tentative Start Date")]
         public DateTime TentativeStartDate { get; set; }
 
         [Required(ErrorMessage = "Please Select Tentative End Date")]
-        [DataType(DataType.Date, ErrorMessage = "Invalid End Date")]
+        [DataType(DataType.Date)]
         [Display(Name = "Tentative End Date")]
         public DateTime TentativeEndDate { get; set; }
-        
+
+       
         public DateTime ActualStartDate { get; set; }
 
+     
         public DateTime ActualEndDate { get; set; }
-
-
     }
 }

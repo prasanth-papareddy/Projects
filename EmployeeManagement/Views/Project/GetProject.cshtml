@@ -1,0 +1,21 @@
+﻿@model Project
+
+<div class="card-deck">    
+    <div class="card m-3">
+        <div class="card-header text-center">
+            <h3>@Model.Name</h3>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 m-1">
+                <h4 class="text-center">Domain: @Model.Domain</h4><br />
+                <h4 class="text-center">Budget: @Model.Budget</h4><br />
+                <h4 class="text-center">Tentative StartDate: @Model.TentativeStartDate</h4><br /><h4 class="text-center">Tentative EndDate: @Model.TentativeEndDate</h4>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <a asp-controller="Project" asp-action="Update" asp-route-Id="@Model.Id" class="btn btn-outline-primary">Edit</a>
+            <a asp-controller="Project" asp-action="Delete" asp-route-Id="@Model.Id" class="btn btn-outline-danger m-1">Delete</a>
+            <a asp-controller="Project" asp-action="GetProjects" class="btn btn-outline-secondary">Back</a>
+        </div>
+    </div>
+</div>
