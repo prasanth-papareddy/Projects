@@ -132,7 +132,7 @@ namespace EmployeeManagement.Controllers
                     projectRepository.AddEmployee(projectEmployee);
                 }
             }
-            return View(model);
+            return RedirectToAction("GetProjects" , "Project");
         }
 
 
