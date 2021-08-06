@@ -44,20 +44,33 @@ namespace EmployeeManagement.RepositoryModels
         }
 
         public Project GetProject(int Id)
-        {            
+        {
             return appDbContext.Projects.FirstOrDefault(e => e.Id == Id);
-        }        
+        }
         public IEnumerable<ProjectEmployee> GetEmployees(int Id)
         {
             return appDbContext.ProjectEmployees.Include(e => e.Employee).
                 Include(e => e.Project).
-                Where(e => e.ProjectId == Id).ToList();                
+                Include(e => e.Employee.Department).
+                Where(e => e.ProjectId == Id).ToList();
         }
 
         public void AddEmployee(ProjectEmployee projectEmployee)
         {
-            appDbContext.ProjectEmployees.Add(projectEmployee);
-            appDbContext.SaveChanges();            
+            if (!appDbContext.ProjectEmployees.Any(e => e.EmployeeId == projectEmployee.EmployeeId && e.ProjectId == projectEmployee.ProjectId))
+            {
+                appDbContext.ProjectEmployees.Add(projectEmployee);
+                appDbContext.SaveChanges();
+            }
+        }
+
+        public void RemoveEmployee(ProjectEmployee projectEmployee)
+        {
+            if (appDbContext.ProjectEmployees.Any(e => e.EmployeeId == projectEmployee.EmployeeId && e.ProjectId == projectEmployee.ProjectId))
+            {
+                appDbContext.ProjectEmployees.Remove(projectEmployee);
+                appDbContext.SaveChanges();
+            }
         }
     }
 }

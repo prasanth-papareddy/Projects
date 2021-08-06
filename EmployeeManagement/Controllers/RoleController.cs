@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using EmployeeManagement.Models;
 using EmployeeManagement.RepositoryModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
 namespace EmployeeManagement.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RoleController : Controller
     {
         private readonly IRoleRepository roleRepository;

@@ -35,7 +35,7 @@ namespace EmployeeManagement
             });
 
             services.AddDbContextPool<AppDbContext>(options =>
-               options.UseSqlServer(@"Server=PRASANTHREDDY\PRASANTHREDDY; Database=EmployeeManagement; User Id=sa; Password=prasanthreddy;")
+               options.UseSqlServer(@"Server=PRASANTHREDDY\PRASANTHREDDY; Database=EmployeeManagement; User Id=sa; Password=prasanthreddy; MultipleActiveResultSets=true;")
             );
 
             services.AddIdentity<IdentityUser,IdentityRole>()

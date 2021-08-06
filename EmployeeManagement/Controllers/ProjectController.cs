@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeManagement.Controllers
 {
-    [Authorize(Roles= "Adminstrator")]
+    [Authorize(Roles= "Manager")]
     public class ProjectController : Controller
     {
         private readonly IProjectRepository projectRepository;
@@ -102,39 +102,55 @@ namespace EmployeeManagement.Controllers
 
 
         [HttpGet]
-        public IActionResult AddEmployees(int Id)
+        public IActionResult ManageEmployees(int Id)
         {
             ViewBag.ProjectId = Id;
             var model = new List<ProjectAddEmployeesViewModel>();
-            List<Employee> employees = employeeRepository.GetAllEmployees();
-            foreach (var Employees in employees)
+            var Projectemployees = projectRepository.GetEmployees(Id).Select(x => x.EmployeeId).ToHashSet();
+            IEnumerable<Employee> AllEmployees = employeeRepository.GetAllEmployees();
+        
+            foreach (var allEmployees in AllEmployees)
             {
+
                 var projectAddEmployeesViewModel = new ProjectAddEmployeesViewModel
                 {
-                    EmployeeId = Employees.Id,
-                    EmployeeName = Employees.Name
+                    EmployeeId = allEmployees.Id,
+                    EmployeeName = allEmployees.Name,
+                    EmployeeDepartment = allEmployees.Department.DepartmentName
                 };
-
+                if(Projectemployees.Contains(allEmployees.Id))
+                {
+                    projectAddEmployeesViewModel.IsSelected = true;
+                }                
                 model.Add(projectAddEmployeesViewModel);
             }
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult AddEmployees(List<ProjectAddEmployeesViewModel> model, int ProjectId)
+        public IActionResult ManageEmployees(List<ProjectAddEmployeesViewModel> model, int ProjectId)
         {
+           
             for (int i = 0; i < model.Count; i++)
             {
                 if (model[i].IsSelected)
                 {
+                   
                     ProjectEmployee projectEmployee = new ProjectEmployee();
                     projectEmployee.EmployeeId = model[i].EmployeeId;
                     projectEmployee.ProjectId = Convert.ToInt32(ProjectId);
-
+                    
                     projectRepository.AddEmployee(projectEmployee);
                 }
+                else
+                {
+                    ProjectEmployee projectEmployee = new ProjectEmployee();
+                    projectEmployee.EmployeeId = model[i].EmployeeId;
+                    projectEmployee.ProjectId = Convert.ToInt32(ProjectId);
+                    projectRepository.RemoveEmployee(projectEmployee);
+                }
             }
-            return RedirectToAction("GetProjects" , "Project");
+            return RedirectToAction("GetProject" , "Project", new { Id = ProjectId});
         }
 
 

@@ -35,17 +35,21 @@ namespace EmployeeManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                var User = new IdentityUser
+                var user = new IdentityUser
                 {
                     UserName = registerViewModel.Email,
                     Email = registerViewModel.Email
                 };
 
-                var Result = await usermanger.CreateAsync(User, registerViewModel.Password);
+                var Result = await usermanger.CreateAsync(user, registerViewModel.Password);
 
                 if (Result.Succeeded)
                 {
-                    await signInManager.SignInAsync(User, isPersistent: false);
+                    if(signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    {
+                        return RedirectToAction("GetUsers", "Administration");
+                    }
+                    await signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("GetEmployees", "Employee");
                 }
 

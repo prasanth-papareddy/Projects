@@ -1,0 +1,51 @@
+﻿@model List<ProjectAddEmployeesViewModel>
+    <div class="text-center">
+        <h4>Add / Remove Employees to the Project</h4>
+    </div>
+<br/>
+    @{
+        var ProjectId = ViewBag.ProjectId;
+    }
+
+    <form method="post" asp-action="ManageEmployees" asp-controller="Project" asp-route-ProjectId="@ProjectId">
+        <div class="row">
+            <div class="col-sm-12">
+                <input asp-for="@ProjectId" style="display:none" />
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr class="text-center">
+                            <th>Option</th>
+                            <th>Name</th>
+                            <th>Department</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                        <tr class="text-center">
+                            <td>
+                                <input type="hidden" asp-for="@Model[i].EmployeeId" />
+                                <input type="hidden" asp-for="@Model[i].EmployeeName" />
+                                <input asp-for="@Model[i].IsSelected" class="form-check-input" />
+                            </td>
+                            <td>
+                                <label class="form-check-label" asp-for="@Model[i].IsSelected">
+                                    @Model[i].EmployeeName
+                                </label>
+                            </td>
+                            <td>
+                                <label class="form-check-label" asp-for="@Model[i].IsSelected">
+                                    @Model[i].EmployeeDepartment
+                                </label>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <input type="submit" value="Update Changes" class="btn btn-primary"
+                       style="width:auto" />
+            </div>
+        </div>
+    </form>

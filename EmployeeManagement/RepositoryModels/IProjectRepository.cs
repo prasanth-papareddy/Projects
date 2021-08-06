@@ -21,5 +21,7 @@ namespace EmployeeManagement.RepositoryModels
 
         void AddEmployee(ProjectEmployee projectEmployee);
 
+        void RemoveEmployee(ProjectEmployee projectEmployee);
+
     }
 }

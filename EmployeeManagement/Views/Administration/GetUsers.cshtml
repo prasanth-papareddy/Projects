@@ -1,0 +1,39 @@
+﻿@model IEnumerable<IdentityUser>
+
+
+<div class="row">
+    <div class="col-sm-12">
+
+        @if (Model.Any())
+        {
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr class="text-center">
+                        <th>User Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var users in Model)
+                    {
+                        <tr class="text-center">
+                            <td>@users.UserName</td>
+                            <td>
+                                <a asp-controller="Administration" asp-action="UpdateUser" asp-route-Id="@users.Id" class="btn btn-outline-success"><i class="fas fa-edit">Edit</i></a>
+                                <form  method="post" asp-controller="Administration" asp-action="DeleteUser" asp-route-Id="@users.Id" >
+                                    <button type="submit" class="btn btn-outline-danger m-1">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <a asp-controller="Account" asp-action="Register" class="btn btn-outline-success">Create User</a>
+        }
+        else
+        {
+            <h4 class="text-decoration-line-through">No Users Created</h4>
+            <a asp-controller="Account" asp-action="Register" class="btn btn-outline-success">Create User</a>
+        }
+    </div>
+</div>

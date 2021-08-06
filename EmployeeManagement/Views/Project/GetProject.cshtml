@@ -3,7 +3,7 @@
 <div class="card-deck">    
     <div class="card m-3">
         <div class="card-header text-center">
-            <h3>@Model.Project.Name</h3>
+            <h3>Project Name: @Model.Project.Name</h3>
         </div>
         <div class="row">
             <div class="col-sm-5">
@@ -25,7 +25,7 @@
                         {
                             <tr class="text-center">
                                 <td>@emp.Employee.Name</td>
-                                <td>@emp.Employee?.Department?.DepartmentName  N/A</td>                                                                
+                                <td>@emp.Employee?.Department?.DepartmentName</td>                                                                
                             </tr>
                         }
                     </tbody>
@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="card-footer text-center">
-            <a asp-controller="Project" asp-action="AddEmployees" asp-route-Id="@Model.Project.Id" class="btn btn-outline-primary">Assign Employees</a>
+            <a asp-controller="Project" asp-action="ManageEmployees" asp-route-Id="@Model.Project.Id" class="btn btn-outline-primary">Manage Employees</a>
             <a asp-controller="Project" asp-action="Update" asp-route-Id="@Model.Project.Id" class="btn btn-outline-primary">Edit</a>
             <a asp-controller="Project" asp-action="Delete" asp-route-Id="@Model.Project.Id" class="btn btn-outline-danger m-1">Delete</a>
             <a asp-controller="Project" asp-action="GetProjects" class="btn btn-outline-secondary">Back</a>

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeManagement.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeRepository employeeRepository;
@@ -24,7 +25,7 @@ namespace EmployeeManagement.Controllers
             this.departmentRepository = departmentRepository;
             this.roleRepository = roleRepository;
         }
-        
+        [Authorize(Roles = "Admin,Manager")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -33,7 +34,7 @@ namespace EmployeeManagement.Controllers
             employeeCreateViewModel.Roles = roleRepository.GetRoles();
             return View(employeeCreateViewModel);
         }
-
+        [Authorize(Roles = "Admin,Manager")]
         [HttpPost]
         public RedirectToActionResult Create(EmployeeCreateViewModel employeeCreateViewModel)
         {
@@ -55,7 +56,7 @@ namespace EmployeeManagement.Controllers
             return RedirectToAction("Create");
         }
 
-
+        [Authorize(Roles = "Admin,Manager")]
         [HttpGet]
         public IActionResult Update(int Id)
         {
@@ -73,6 +74,7 @@ namespace EmployeeManagement.Controllers
             return View(updateEmployeeViewModel);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [HttpPost]
         public RedirectToActionResult Update(UpdateEmployeeViewModel updateEmployeeViewModel)
         {
@@ -93,7 +95,7 @@ namespace EmployeeManagement.Controllers
             }
             return RedirectToAction("GetEmployees");
         }
-        [AllowAnonymous]
+        
         public IActionResult GetEmployees()
         {
             List<Employee> employees = new List<Employee>();
@@ -101,7 +103,7 @@ namespace EmployeeManagement.Controllers
             return View(employees);
 
         }
-
+        [Authorize(Roles ="Employee,Admin,Manager")]
         public IActionResult GetEmployee(int Id)
         {
             Employee employee = new Employee();
@@ -110,6 +112,7 @@ namespace EmployeeManagement.Controllers
 
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [HttpGet]
         public RedirectToActionResult Delete(int Id)
         {
