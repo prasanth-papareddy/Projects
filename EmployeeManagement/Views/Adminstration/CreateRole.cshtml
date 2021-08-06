@@ -1,0 +1,16 @@
+﻿@model AdminstrationCreateRoleViewModel
+
+<br />
+
+<form asp-controller="Adminstration" asp-action="CreateRole" method="post">
+    <div class="form-group row">
+        <label asp-for="Name" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+   
+    <br/>
+    <button type="submit" class="btn btn-outline-primary">Create</button>    
+</form>

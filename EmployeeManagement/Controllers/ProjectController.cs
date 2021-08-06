@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using EmployeeManagement.RepositoryModels;
 using EmployeeManagement.Models;
 using EmployeeManagement.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeManagement.Controllers
 {
+    [Authorize(Roles= "Adminstrator")]
     public class ProjectController : Controller
     {
         private readonly IProjectRepository projectRepository;
