@@ -18,10 +18,13 @@
             <div class="col-sm-12 m-1"><h6 class="text-center">Created On: @Model.Created</h6><br/><h6 class="text-center">Last Updated On: @Model.Updated</h6></div>
         </div>
         <div class="card-footer text-center">
-            <a asp-controller="Administration" asp-action="UpdateUser" asp-route-Id="@Model.Id" class="btn btn-outline-primary">Edit</a>
-            <form method="post" asp-controller="Administration" asp-action="DeleteUser" asp-route-Id="@Model.Id">
-                <button type="submit" class="btn btn-outline-danger m-1">Delete</button>
-            </form>        
+            @if (signInManager.IsSignedIn(User) && (User.IsInRole("Manager") || User.IsInRole("Admin")))
+            {
+                <a asp-controller="Administration" asp-action="UpdateUser" asp-route-Id="@Model.Id" class="btn btn-outline-primary">Edit</a>
+                <form method="post" asp-controller="Administration" asp-action="DeleteUser" asp-route-Id="@Model.Id">
+                    <button type="submit" class="btn btn-outline-danger m-1">Delete</button>
+                </form>
+            }
             <a asp-controller="Employee" asp-action="GetEmployees" class="btn btn-outline-secondary">Back</a>
         </div>
     </div>

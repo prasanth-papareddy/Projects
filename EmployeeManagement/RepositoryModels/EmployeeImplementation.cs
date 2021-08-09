@@ -1,4 +1,5 @@
 ﻿using EmployeeManagement.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,15 +11,14 @@ namespace EmployeeManagement.RepositoryModels
     public class EmployeeImplementation : IEmployeeRepository
     {
         private readonly AppDbContext appDbContext;
-
         public EmployeeImplementation(AppDbContext appDbContext)
         {
-            this.appDbContext = appDbContext;
+            this.appDbContext = appDbContext;           
         }
         public List<Employee> GetAllEmployees()
         {
             List<Employee> employees = new List<Employee>();
-            employees = appDbContext.Employees.Include(x => x.Department).ToList();           
+            employees = appDbContext.Employees.Include(x => x.Department).ToList();            
             return employees;
 
         }

@@ -29,13 +29,13 @@ namespace EmployeeManagement.Models
         public int DepartmentId { get; set; }
         public virtual Department Department { get; set; }
 
-
-
         public DateTime Created { get; set; }
 
         public DateTime Updated { get; set; }
 
         public IList<ProjectEmployee>  ProjectEmployees { get; set; }
         
+
+        public bool IsDeleted { get; set; }
     }
 }

@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeManagement.Controllers
 {
-    [AllowAnonymous]
+    [Authorize]
     public class ProjectController : Controller
     {
         private readonly IProjectRepository projectRepository;
@@ -23,12 +23,14 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Manager")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Manager")]
         public IActionResult Create(Project project)
         {
             if (ModelState.IsValid)
@@ -40,6 +42,7 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Manager")]
         public IActionResult Update(int Id)
         {
 
@@ -58,6 +61,7 @@ namespace EmployeeManagement.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "Manager")]
         public RedirectToActionResult Update(ProjectUpdateViewModel projectUpdateViewModel)
         {
             if (ModelState.IsValid)
@@ -78,7 +82,7 @@ namespace EmployeeManagement.Controllers
             return RedirectToAction("Update");
         }
 
-
+        [Authorize(Roles = "Manager")]
         public RedirectToActionResult Delete(int Id)
         {
             projectRepository.DeleteProject(Id);
@@ -102,6 +106,7 @@ namespace EmployeeManagement.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Manager")]
         public IActionResult ManageEmployees(int Id)
         {
             ViewBag.ProjectId = Id;
@@ -128,6 +133,7 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Manager")]
         public IActionResult ManageEmployees(List<ProjectAddEmployeesViewModel> model, int ProjectId)
         {
            

@@ -13,5 +13,7 @@ namespace EmployeeManagement.Models
         [Required(ErrorMessage ="Please Enter Department Name")]
         [Display(Name ="Department Name")]
         public string DepartmentName { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

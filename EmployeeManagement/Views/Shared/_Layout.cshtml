@@ -27,7 +27,7 @@
                     { 
                    <li class="nav-item"><a class="nav-link ListHeader"  asp-action="GetEmployees" asp-controller="Employee">Employees</a></li>
                     }
-                   @if (signInManager.IsSignedIn(User) && User.IsInRole("Manager"))
+                   @if (signInManager.IsSignedIn(User) && (User.IsInRole("Manager") || !User.IsInRole("Admin")))
                    { 
                     <li class="nav-item"><a class="nav-link ListHeader" asp-action="GetProjects" asp-controller="Project">Projects</a></li>
                    }

@@ -4,14 +4,16 @@ using EmployeeManagement.RepositoryModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EmployeeManagement.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210809161803_SoftDeleteAddedForEmployees")]
+    partial class SoftDeleteAddedForEmployees
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,9 +32,6 @@ namespace EmployeeManagement.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.HasKey("DepartmentId");
 
                     b.ToTable("Departments");
@@ -41,20 +40,17 @@ namespace EmployeeManagement.Migrations
                         new
                         {
                             DepartmentId = 1,
-                            DepartmentName = "HR",
-                            IsDeleted = false
+                            DepartmentName = "HR"
                         },
                         new
                         {
                             DepartmentId = 2,
-                            DepartmentName = "IT",
-                            IsDeleted = false
+                            DepartmentName = "IT"
                         },
                         new
                         {
                             DepartmentId = 3,
-                            DepartmentName = "Dev",
-                            IsDeleted = false
+                            DepartmentName = "Dev"
                         });
                 });
 
@@ -164,9 +160,6 @@ namespace EmployeeManagement.Migrations
                     b.Property<string>("Domain")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()

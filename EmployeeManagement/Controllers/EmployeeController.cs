@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeManagement.Controllers
 {
-    [AllowAnonymous]
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeRepository employeeRepository;
@@ -97,6 +97,7 @@ namespace EmployeeManagement.Controllers
         {
             List<Employee> employees = new List<Employee>();
             employees = employeeRepository.GetAllEmployees();
+
             return View(employees);
 
         }

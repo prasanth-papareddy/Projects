@@ -5,28 +5,36 @@
     <div class="col-sm-6">
         <table class="table table-striped table-bordered">
             <thead>
-                <tr class="text-center">                    
+                <tr class="text-center">
                     <th>Project Name</th>
                     <th>Tentative Start Date</th>
                     <th>Tentative End Date</th>
-                    <th>Actions</th>                    
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var p in Model)
                 {
-                    <tr class="text-center">                        
+                    <tr class="text-center">
                         <td>@p.Name</td>
                         <td>@p.TentativeStartDate</td>
                         <td>@p.TentativeEndDate</td>
-                        <td><a asp-controller="Project" asp-action="GetProject" asp-route-Id="@p.Id" class="btn btn-outline-primary m-1"><i class="fas fa-edit">Details</i></a>
-                        <a asp-controller="Project" asp-action="Update" asp-route-Id="@p.Id" class="btn btn-outline-primary m-1"><i class="fas fa-edit">Edit</i></a>
-                        <a asp-controller="Project" asp-action="Delete" asp-route-Id="@p.Id" class="btn btn-outline-danger m-1"><i class="far fa-trash-alt">Delete</i></a></td>
+                        <td>
+                            <a asp-controller="Project" asp-action="GetProject" asp-route-Id="@p.Id" class="btn btn-outline-primary m-1"><i class="fas fa-edit">Details</i></a>
+                            @if (signInManager.IsSignedIn(User) && User.IsInRole("Manager"))
+                            {
+                                <a asp-controller="Project" asp-action="Update" asp-route-Id="@p.Id" class="btn btn-outline-primary m-1"><i class="fas fa-edit">Edit</i></a>
+                                <a asp-controller="Project" asp-action="Delete" asp-route-Id="@p.Id" class="btn btn-outline-danger m-1"><i class="far fa-trash-alt">Delete</i></a>
+                            }
+                        </td>
                     </tr>
                 }
             </tbody>
         </table>
-        <a asp-controller="Project" asp-action="Create"  class="btn btn-outline-success">Create</a>
+        @if (signInManager.IsSignedIn(User) && User.IsInRole("Manager"))
+        {
+            <a asp-controller="Project" asp-action="Create" class="btn btn-outline-success">Create</a>
+        }
     </div>
     <div class="col-sm-3"></div>
 </div>
