@@ -8,7 +8,7 @@ namespace EmployeeManagement.ViewModels
 {
     public class ProjectAddEmployeesViewModel
     {
-        public int EmployeeId { get; set; }
+        public string EmployeeId { get; set; }
         public string EmployeeName { get; set; }
 
         public string EmployeeDepartment { get; set; }

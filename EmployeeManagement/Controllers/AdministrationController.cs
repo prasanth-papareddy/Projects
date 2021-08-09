@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EmployeeManagement.Models;
+using EmployeeManagement.RepositoryModels;
 using EmployeeManagement.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -9,17 +11,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManagement.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class AdministrationController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;
 
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<Employee> userManager;
 
-        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
+        private readonly IDepartmentRepository departmentRepository;
+        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<Employee> userManager , IDepartmentRepository departmentRepository)
         {
             this.roleManager = roleManager;
             this.userManager = userManager;
+            this.departmentRepository = departmentRepository;
         }
 
         [HttpGet]
@@ -170,8 +174,14 @@ namespace EmployeeManagement.Controllers
             {
                 Id = user.Id,
                 Email = user.Email,
+                Name = user.Name,
                 UserName = user.UserName,
-            };
+                Gender = user.Gender,
+                DepartmentId = user.DepartmentId,
+                Departments = departmentRepository.GetDepartments()
+        };
+
+
             return View(model);
         }
 
@@ -182,6 +192,10 @@ namespace EmployeeManagement.Controllers
 
             user.Email = model.Email;
             user.UserName = model.UserName;
+            user.Name = model.Name;
+            user.DepartmentId = model.DepartmentId;
+            user.Gender = model.Gender;
+            user.Updated = DateTime.Now;
 
             var result = await userManager.UpdateAsync(user);
 
@@ -207,7 +221,7 @@ namespace EmployeeManagement.Controllers
 
             if (result.Succeeded)
             {
-                return RedirectToAction("GetUsers");
+                return RedirectToAction("GetEmployees","Employee");
             }
 
             foreach (var error in result.Errors)

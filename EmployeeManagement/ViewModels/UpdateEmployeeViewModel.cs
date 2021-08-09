@@ -9,7 +9,7 @@ namespace EmployeeManagement.ViewModels
 {
     public class UpdateEmployeeViewModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required(ErrorMessage = "Please Enter Name")]
         public string Name { get; set; }
@@ -26,10 +26,7 @@ namespace EmployeeManagement.ViewModels
 
         public IEnumerable<Department> Departments { get; set; }
 
-        [Required(ErrorMessage = "Please Select Role")]
-        public int RoleId { get; set; }        
-
-        public IEnumerable<Role> Roles { get; set; }
+   
         public DateTime Created { get; set; }
 
         public DateTime Updated { get; set; }

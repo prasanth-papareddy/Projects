@@ -10,16 +10,18 @@
         <div class="row">
             <div class="col-sm-12 m-1">
                 <img class="card-img-top" src="~/Images/ProfileImage.png" style="width:200px;height:200px" />
-                <h6 class="text-center">Email: @Model.EmailId</h6><br />
+                <h6 class="text-center">Email: @Model.Email</h6><br />
                 <h6 class="text-center">Gender: @Model.Gender</h6><br />
                 <h6 class="text-center">Department: @Model.Department.DepartmentName</h6><br />
-                <h6 class="text-center">Role: @Model.Role.Name</h6>
+               
             </div>
             <div class="col-sm-12 m-1"><h6 class="text-center">Created On: @Model.Created</h6><br/><h6 class="text-center">Last Updated On: @Model.Updated</h6></div>
         </div>
         <div class="card-footer text-center">
-            <a asp-controller="Employee" asp-action="Update" asp-route-Id="@Model.Id" class="btn btn-outline-primary">Edit</a>
-            <a asp-controller="Employee" asp-action="Delete" asp-route-Id="@Model.Id" class="btn btn-outline-danger m-1">Delete</a>
+            <a asp-controller="Administration" asp-action="UpdateUser" asp-route-Id="@Model.Id" class="btn btn-outline-primary">Edit</a>
+            <form method="post" asp-controller="Administration" asp-action="DeleteUser" asp-route-Id="@Model.Id">
+                <button type="submit" class="btn btn-outline-danger m-1">Delete</button>
+            </form>        
             <a asp-controller="Employee" asp-action="GetEmployees" class="btn btn-outline-secondary">Back</a>
         </div>
     </div>

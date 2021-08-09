@@ -7,26 +7,32 @@ using Microsoft.AspNetCore.Mvc;
 using EmployeeManagement.Models;
 using EmployeeManagement.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using EmployeeManagement.RepositoryModels;
 
 namespace EmployeeManagement.Controllers
 {
     [AllowAnonymous]
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> usermanger;
+        private readonly UserManager<Employee> usermanger;
 
-        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly SignInManager<Employee> signInManager;
+
+        private readonly IDepartmentRepository departmentRepository;
 
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<Employee> userManager, SignInManager<Employee> signInManager , IDepartmentRepository departmentRepository)
         {
             this.usermanger = userManager;
             this.signInManager = signInManager;
+            this.departmentRepository = departmentRepository;
         }
         [HttpGet]
         public IActionResult Register()
         {
-            return View();
+            RegisterViewModel registerViewModel = new RegisterViewModel();
+            registerViewModel.Departments = departmentRepository.GetDepartments();
+            return View(registerViewModel);
         }
 
         [HttpPost]
@@ -35,10 +41,15 @@ namespace EmployeeManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser
+                var user = new Employee
                 {
-                    UserName = registerViewModel.Email,
-                    Email = registerViewModel.Email
+                    Name = registerViewModel.Name,
+                    Email = registerViewModel.Email,
+                    UserName = registerViewModel.UserName,
+                    Gender = registerViewModel.Gender,
+                    DepartmentId = registerViewModel.DepartmentId,
+                    Created = DateTime.Now,
+                    Updated = DateTime.Now,                    
                 };
 
                 var Result = await usermanger.CreateAsync(user, registerViewModel.Password);

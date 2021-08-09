@@ -10,11 +10,11 @@ namespace EmployeeManagement.RepositoryModels
     {
         List<Employee> GetAllEmployees();
 
-        Employee GetEmployeebyId(int Id);
+        Employee GetEmployeebyId(string Id);
 
         Employee CreateEmployee(Employee employee);
 
-        Employee RemoveEmployee(int Id);
+        Employee RemoveEmployee(string Id);
 
         Employee UpdateEmployee(Employee employee);
 

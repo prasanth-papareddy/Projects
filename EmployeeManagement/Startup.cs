@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using EmployeeManagement.Models;
 using EmployeeManagement.RepositoryModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -35,15 +36,14 @@ namespace EmployeeManagement
             });
 
             services.AddDbContextPool<AppDbContext>(options =>
-               options.UseSqlServer(@"Server=PRASANTHREDDY\PRASANTHREDDY; Database=EmployeeManagement; User Id=sa; Password=prasanthreddy; MultipleActiveResultSets=true;")
+               options.UseSqlServer(@"Server=PRASANTHREDDY\PRASANTHREDDY; Database=EmployeeManagement1; User Id=sa; Password=prasanthreddy; MultipleActiveResultSets=true;")
             );
 
-            services.AddIdentity<IdentityUser,IdentityRole>()
+            services.AddIdentity<Employee, IdentityRole>()
                   .AddEntityFrameworkStores<AppDbContext>();
 
             services.AddScoped<IDepartmentRepository, DepartmentImplementation>();
-            services.AddScoped<IEmployeeRepository, EmployeeImplementation>();
-            services.AddScoped<IRoleRepository, RoleImplementation>();
+            services.AddScoped<IEmployeeRepository, EmployeeImplementation>();       
             services.AddScoped<IProjectRepository,ProjectImplementation>();
         }
 

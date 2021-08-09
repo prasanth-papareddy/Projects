@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeManagement.Controllers
 {
-    [Authorize(Roles= "Manager")]
+    [AllowAnonymous]
     public class ProjectController : Controller
     {
         private readonly IProjectRepository projectRepository;

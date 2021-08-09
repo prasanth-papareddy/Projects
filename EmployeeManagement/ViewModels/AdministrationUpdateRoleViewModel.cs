@@ -19,6 +19,8 @@ namespace EmployeeManagement.ViewModels
         public string Name { get; set; }
         public List<RoleUsers> Users { get; set; }
 
+
+
     }
 
     public class RoleUsers

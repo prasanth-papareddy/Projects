@@ -10,20 +10,18 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeManagement.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeRepository employeeRepository;
 
         private readonly IDepartmentRepository departmentRepository;
 
-        private readonly IRoleRepository roleRepository;
-
-        public EmployeeController(IEmployeeRepository employeeRepository , IDepartmentRepository departmentRepository , IRoleRepository roleRepository)
+        public EmployeeController(IEmployeeRepository employeeRepository , IDepartmentRepository departmentRepository)
         {
             this.employeeRepository = employeeRepository;
             this.departmentRepository = departmentRepository;
-            this.roleRepository = roleRepository;
+         
         }
         [Authorize(Roles = "Admin,Manager")]
         [HttpGet]
@@ -31,7 +29,7 @@ namespace EmployeeManagement.Controllers
         {
             EmployeeCreateViewModel employeeCreateViewModel = new EmployeeCreateViewModel();
             employeeCreateViewModel.Departments = departmentRepository.GetDepartments();
-            employeeCreateViewModel.Roles = roleRepository.GetRoles();
+            
             return View(employeeCreateViewModel);
         }
         [Authorize(Roles = "Admin,Manager")]
@@ -42,12 +40,13 @@ namespace EmployeeManagement.Controllers
             {
                 Employee employee = new Employee();
                 employee.Name = employeeCreateViewModel.Name;
-                employee.EmailId = employeeCreateViewModel.EmailId;
+                employee.Email = employeeCreateViewModel.Email;
                 employee.Gender = employeeCreateViewModel.Gender.Value;
+                employee.UserName = employeeCreateViewModel.UserName;
                 employee.Created = DateTime.Now;
                 employee.Updated = DateTime.Now;
                 employee.DepartmentId = employeeCreateViewModel.Department;
-                employee.RoleId = employeeCreateViewModel.Role;
+     
                Employee createdemployee =  employeeRepository.CreateEmployee(employee);
 
                return RedirectToAction("GetEmployees", createdemployee);
@@ -58,18 +57,17 @@ namespace EmployeeManagement.Controllers
 
         [Authorize(Roles = "Admin,Manager")]
         [HttpGet]
-        public IActionResult Update(int Id)
+        public IActionResult Update(string Id)
         {
             Employee employee = employeeRepository.GetEmployeebyId(Id);
             UpdateEmployeeViewModel updateEmployeeViewModel = new UpdateEmployeeViewModel();
             updateEmployeeViewModel.Id = employee.Id;
             updateEmployeeViewModel.Name = employee.Name;
-            updateEmployeeViewModel.EmailId = employee.EmailId;
+            updateEmployeeViewModel.EmailId = employee.Email;
             updateEmployeeViewModel.Gender = employee.Gender;
             updateEmployeeViewModel.DepartmentId = employee.DepartmentId;
             updateEmployeeViewModel.Departments = departmentRepository.GetDepartments();
-            updateEmployeeViewModel.RoleId = employee.RoleId;
-            updateEmployeeViewModel.Roles = roleRepository.GetRoles();
+      
 
             return View(updateEmployeeViewModel);
         }
@@ -83,13 +81,12 @@ namespace EmployeeManagement.Controllers
                 Employee employee = new Employee();
                 employee.Id = updateEmployeeViewModel.Id;
                 employee.Name = updateEmployeeViewModel.Name;
-                employee.EmailId = updateEmployeeViewModel.EmailId;
+                employee.Email = updateEmployeeViewModel.EmailId;
                 employee.Gender = updateEmployeeViewModel.Gender.Value;
                 employee.Created = updateEmployeeViewModel.Created;
                 employee.Updated = DateTime.Now;
                 employee.DepartmentId = updateEmployeeViewModel.DepartmentId;
-                employee.RoleId = updateEmployeeViewModel.RoleId;
-
+      
                 Employee UpdatedEmployee = employeeRepository.UpdateEmployee(employee);
                 
             }
@@ -104,7 +101,7 @@ namespace EmployeeManagement.Controllers
 
         }
         [Authorize(Roles ="Employee,Admin,Manager")]
-        public IActionResult GetEmployee(int Id)
+        public IActionResult GetEmployee(string Id)
         {
             Employee employee = new Employee();
             employee = employeeRepository.GetEmployeebyId(Id);
@@ -114,7 +111,7 @@ namespace EmployeeManagement.Controllers
 
         [Authorize(Roles = "Admin,Manager")]
         [HttpGet]
-        public RedirectToActionResult Delete(int Id)
+        public RedirectToActionResult Delete(string Id)
         {
             employeeRepository.RemoveEmployee(Id);
             return RedirectToAction("GetEmployees");

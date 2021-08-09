@@ -4,6 +4,14 @@
 
 <form asp-controller="Administration" asp-action="UpdateUser" method="post">
     <div class="form-group row">
+        <label asp-for="Name" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group row">
         <label asp-for="Email" class="col-sm-2 col-form-label"></label>
         <div class="col-sm-10">
             <input asp-for="Email" class="form-control" />
@@ -19,6 +27,32 @@
         </div>
     </div>
     <br />
+    <div class="form-group row">
+        <label asp-for="Gender" class="col-sm-2"></label>
+        <div class="col-sm-10">
+            <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()" class="form-select">
+                <option value="">Select</option>
+            </select>
+            <span asp-validation-for="Gender" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group row">
+        <label asp-for="DepartmentId" class="col-sm-2"></label>
+        <div class="col-sm-10">
+            <select asp-for="DepartmentId" asp-items="@Model.Departments.Select(d => new
+           SelectListItem()
+             {
+                 Value = d.DepartmentId.ToString(),
+                 Text = d.DepartmentName.ToString()
+             })" class="form-select">
+                <option value="">Select</option>
+            </select>
+            <span asp-validation-for="DepartmentId" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <br />
     <button type="submit" class="btn btn-outline-primary">Update</button>
-    <a asp-controller="Administration" asp-action="GetUsers" class="btn btn-outline-secondary">Back</a>
+    <a asp-controller="Employee" asp-action="GetEmployees" class="btn btn-outline-secondary">Back</a>
 </form>

@@ -9,7 +9,7 @@ namespace EmployeeManagement.Models
     public class ProjectEmployee
     {
         [ForeignKey("Employee")]
-        public int EmployeeId  { get; set; }
+        public string EmployeeId  { get; set; }
 
         public Employee Employee { get; set; }
 

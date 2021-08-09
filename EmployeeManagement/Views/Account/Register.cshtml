@@ -2,31 +2,77 @@
 
 
 <div class="row">
-    <div class="col-sm-2"></div>
-    <div class="col-md-8">
-        <form method="post">
-            <div class="form-group">
-                <label asp-for="Email"></label>
+
+    <form method="post">
+        <div class="form-group row">
+            <label asp-for="Name" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <br />
+        <div class="form-group row">
+            <label asp-for="Email" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <br />
-            <div class="form-group">
-                <label asp-for="Password"></label>
+        </div>
+        <br />
+        <div class="form-group row">
+            <label asp-for="UserName" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+        </div>
+        <br />
+        <div class="form-group row">
+            <label asp-for="Gender" class="col-sm-2"></label>
+            <div class="col-sm-10">
+                <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()" class="form-select">
+                    <option value="">Select</option>
+                </select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+        </div>
+        <br />
+        <div class="form-group row">
+            <label asp-for="DepartmentId" class="col-sm-2"></label>
+            <div class="col-sm-10">
+                <select asp-for="DepartmentId" asp-items="@Model.Departments.Select(d => new
+           SelectListItem()
+             {
+                 Value = d.DepartmentId.ToString(),
+                 Text = d.DepartmentName.ToString()
+             })" class="form-select">
+                    <option value="">Select</option>
+                </select>
+                <span asp-validation-for="DepartmentId" class="text-danger"></span>
+            </div>
+        </div>
+        <br />
+        <div class="form-group row">
+            <label asp-for="Password" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            <br />
-            <div class="form-group">
-                <label asp-for="ConfirmPassword"></label>
+        </div>
+        <br />
+        <div class="form-group row">
+            <label asp-for="ConfirmPassword" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
                 <input asp-for="ConfirmPassword" class="form-control" />
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
-            <br />
-            <button type="submit" class="btn btn-primary">Register</button>
-            <br />
-            <div asp-validation-summary="All" class="text-danger"></div>
-        </form>
-    </div>
-    <div class="col-sm-2"></div>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Register</button>
+        <a asp-controller="Employee" asp-action="GetEmployees" class="btn btn-outline-secondary">Back</a>
+        <br />
+        <div asp-validation-summary="All" class="text-danger"></div>
+    </form>
+    
 </div>

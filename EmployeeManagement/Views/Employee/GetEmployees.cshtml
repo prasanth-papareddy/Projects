@@ -6,8 +6,7 @@
             <thead>
                 <tr class="text-center">                    
                     <th>Employee Name</th>
-                    <th>Department</th>
-                    <th>Role</th>
+                    <th>Department</th>                   
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -17,16 +16,18 @@
                 <tr class="text-center">                    
                     <td>@employee.Name</td>
                     <td>@(employee.Department?.DepartmentName ?? "N/A")</td>
-                    <td>@(employee.Role?.Name ?? "N/A")</td>
+                    
                     <td>
                         <a asp-controller="Employee" asp-action="GetEmployee" asp-route-Id="@employee.Id" class="btn btn-outline-primary"><i class="far fa-eye">Get Details</i></a>
-                        <a asp-controller="Employee" asp-action="Update" asp-route-Id="@employee.Id" class="btn btn-outline-success"><i class="fas fa-edit">Edit</i></a>
-                        <a asp-controller="Employee" asp-action="Delete" asp-route-Id="@employee.Id" class="btn btn-outline-danger"><i class="far fa-trash-alt">Delete</i></a>
+                        <a asp-controller="Administration" asp-action="UpdateUser" asp-route-Id="@employee.Id" class="btn btn-outline-success"><i class="fas fa-edit">Edit</i></a>
+                        <form method="post" asp-controller="Administration" asp-action="DeleteUser" asp-route-Id="@employee.Id" >
+                            <button type="submit" class="btn btn-outline-danger m-1">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 }
             </tbody>
         </table>
-        <a asp-controller="Employee" asp-action="Create" class="btn btn-outline-success">Create</a>
+        <a asp-controller="Account" asp-action="Register" class="btn btn-outline-success">Create</a>
     </div>
 </div>

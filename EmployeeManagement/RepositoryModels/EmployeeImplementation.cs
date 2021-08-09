@@ -18,7 +18,7 @@ namespace EmployeeManagement.RepositoryModels
         public List<Employee> GetAllEmployees()
         {
             List<Employee> employees = new List<Employee>();
-            employees = appDbContext.Employees.Include(x => x.Department).Include(x => x.Role).ToList();           
+            employees = appDbContext.Employees.Include(x => x.Department).ToList();           
             return employees;
 
         }
@@ -30,13 +30,13 @@ namespace EmployeeManagement.RepositoryModels
             return employee;
         }
 
-        Employee IEmployeeRepository.GetEmployeebyId(int Id)
+        Employee IEmployeeRepository.GetEmployeebyId(string Id)
         {
-            return appDbContext.Employees.Include(x => x.Department).Include(x => x.Role)
+            return appDbContext.Employees.Include(x => x.Department)
                 .FirstOrDefault(e => e.Id == Id);
         }
 
-        Employee IEmployeeRepository.RemoveEmployee(int Id)
+        Employee IEmployeeRepository.RemoveEmployee(string Id)
         {
             Employee employee = appDbContext.Employees.FirstOrDefault(e=> e.Id == Id);
             appDbContext.Remove(employee);
