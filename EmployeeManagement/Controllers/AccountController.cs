@@ -20,12 +20,14 @@ namespace EmployeeManagement.Controllers
 
         private readonly IDepartmentRepository departmentRepository;
 
+        private readonly RoleManager<IdentityRole> roleManager;
 
-        public AccountController(UserManager<Employee> userManager, SignInManager<Employee> signInManager , IDepartmentRepository departmentRepository)
+        public AccountController(UserManager<Employee> userManager, SignInManager<Employee> signInManager , IDepartmentRepository departmentRepository , RoleManager<IdentityRole> roleManager)
         {
             this.usermanger = userManager;
             this.signInManager = signInManager;
             this.departmentRepository = departmentRepository;
+            this.roleManager = roleManager;
         }
         [HttpGet]
         public IActionResult Register()
@@ -53,6 +55,26 @@ namespace EmployeeManagement.Controllers
                 };
 
                 var Result = await usermanger.CreateAsync(user, registerViewModel.Password);
+
+              
+                if(await roleManager.RoleExistsAsync("Employee"))
+                {
+                    var role = await roleManager.FindByNameAsync("Employee");
+                    IdentityResult RoleUsersResult = await usermanger.AddToRoleAsync(user,role.Name);
+                }
+                else
+                {                    
+                    IdentityRole identityRole = new IdentityRole
+                    {
+                        Name = "Employee"
+                    };
+                    IdentityResult identityResult = await roleManager.CreateAsync(identityRole);
+                    if(identityResult.Succeeded)
+                    {
+                        IdentityResult RoleUsersResult = await usermanger.AddToRoleAsync(user, identityRole.Name);
+                    }
+                }
+                              
 
                 if (Result.Succeeded)
                 {
