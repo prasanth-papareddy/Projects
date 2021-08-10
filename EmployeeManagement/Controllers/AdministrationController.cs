@@ -210,7 +210,7 @@ namespace EmployeeManagement.Controllers
 
             if (result.Succeeded)
             {
-                return RedirectToAction("GetUsers");
+                return RedirectToAction("GetEmployees", "Employee");
             }
 
             foreach (var error in result.Errors)

@@ -19,12 +19,13 @@ namespace EmployeeManagement.ViewModels
 
         [Required(ErrorMessage = "Please Enter User Name")]
         [Display(Name="User Name")]
-        public string UserName { get; set; }
+        public string UN { get; set; }
 
         [Required(ErrorMessage = "Please select Gender")]
         public Gender? Gender { get; set; }
 
         [Required(ErrorMessage = "Please Select Department")]
+        [Display(Name="Department")]
         public int DepartmentId { get; set; }
         public IEnumerable<Department> Departments { get; set; }
 

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Employee>
+﻿@model List<Employee>
 
 <div class="row">
     <div class="col-sm-12">
@@ -7,6 +7,7 @@
                 <tr class="text-center">
                     <th>Employee Name</th>
                     <th>Department</th>
+                    <th>Role</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -16,14 +17,14 @@
                     <tr class="text-center">
                         <td>@employee.Name</td>
                         <td>@(employee.Department?.DepartmentName ?? "N/A")</td>
-
+                        <td>@employee.RoleName</td>
                         <td>
                             <a asp-controller="Employee" asp-action="GetEmployee" asp-route-Id="@employee.Id" class="btn btn-outline-primary"><i class="far fa-eye">Get Details</i></a>
                             @if (signInManager.IsSignedIn(User) && (User.IsInRole("Manager") || User.IsInRole("Admin")))
                             {
                                 <a asp-controller="Administration" asp-action="UpdateUser" asp-route-Id="@employee.Id" class="btn btn-outline-success"><i class="fas fa-edit">Edit</i></a>
-                                <form method="post" asp-controller="Administration" asp-action="DeleteUser" asp-route-Id="@employee.Id">
-                                    <button type="submit" class="btn btn-outline-danger m-1">Delete</button>
+                                <form method="post" asp-controller="Administration"  asp-action="DeleteUser" asp-route-Id="@employee.Id">
+                                    <button type="submit" class="btn btn-outline-danger m-1" onclick="return confirm('Are you sure to delete this Employee ?');" >Delete</button>
                                 </form>
                             }
                         </td>
@@ -32,8 +33,27 @@
             </tbody>
         </table>
         @if (signInManager.IsSignedIn(User) && (User.IsInRole("Manager") || User.IsInRole("Admin")))
-        { 
+        {
             <a asp-controller="Account" asp-action="Register" class="btn btn-outline-success">Create</a>
         }
     </div>
 </div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#GetEmployeesdeleteConfirmation").click(function () {
+                debugger;
+                swal({
+                    title: "Confirmation",
+                    text: "Sure",
+                    type: "Warning",
+                    confirmButtonClass: "btn-danger",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes",
+                    closeOnConfirm: false
+                });
+            })
+        });
+    </script>
+}

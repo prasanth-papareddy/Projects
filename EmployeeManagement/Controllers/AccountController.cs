@@ -45,7 +45,7 @@ namespace EmployeeManagement.Controllers
                 {
                     Name = registerViewModel.Name,
                     Email = registerViewModel.Email,
-                    UserName = registerViewModel.UserName,
+                    UserName = registerViewModel.UN,
                     Gender = registerViewModel.Gender,
                     DepartmentId = registerViewModel.DepartmentId,
                     Created = DateTime.Now,
@@ -58,7 +58,7 @@ namespace EmployeeManagement.Controllers
                 {
                     if(signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                     {
-                        return RedirectToAction("GetUsers", "Administration");
+                        return RedirectToAction("GetEmployees", "Employee");
                     }
                     await signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("GetEmployees", "Employee");

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using EmployeeManagement.ViewModels;
 using EmployeeManagement.RepositoryModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace EmployeeManagement.Controllers
 {
@@ -17,11 +18,16 @@ namespace EmployeeManagement.Controllers
 
         private readonly IDepartmentRepository departmentRepository;
 
-        public EmployeeController(IEmployeeRepository employeeRepository , IDepartmentRepository departmentRepository)
+        private readonly UserManager<Employee> userManager;
+
+        private readonly RoleManager<IdentityRole> roleManager;
+
+        public EmployeeController(IEmployeeRepository employeeRepository , IDepartmentRepository departmentRepository, UserManager<Employee> userManager , RoleManager<IdentityRole> roleManager)
         {
             this.employeeRepository = employeeRepository;
             this.departmentRepository = departmentRepository;
-         
+            this.userManager = userManager;
+            this.roleManager = roleManager;
         }
         [Authorize(Roles = "Admin,Manager")]
         [HttpGet]
@@ -96,10 +102,8 @@ namespace EmployeeManagement.Controllers
         public IActionResult GetEmployees()
         {
             List<Employee> employees = new List<Employee>();
-            employees = employeeRepository.GetAllEmployees();
-
+            employees = employeeRepository.GetAllEmployees();         
             return View(employees);
-
         }
         [Authorize(Roles ="Employee,Admin,Manager")]
         public IActionResult GetEmployee(string Id)

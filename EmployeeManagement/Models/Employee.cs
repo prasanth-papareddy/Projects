@@ -36,5 +36,7 @@ namespace EmployeeManagement.Models
         public IList<ProjectEmployee>  ProjectEmployees { get; set; }
         
         public bool IsDeleted { get; set; }
+
+        public virtual string RoleName { get; set; }
     }
 }

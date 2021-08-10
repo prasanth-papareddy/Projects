@@ -39,7 +39,7 @@ namespace EmployeeManagement
                options.UseSqlServer(@"Server=PRASANTHREDDY\PRASANTHREDDY; Database=EmployeeManagement1; User Id=sa; Password=prasanthreddy; MultipleActiveResultSets=true;")
             );
 
-            services.AddIdentity<Employee, IdentityRole>()
+            services.AddIdentity<Employee,IdentityRole>().AddRoles<IdentityRole>()
                   .AddEntityFrameworkStores<AppDbContext>();
 
             services.AddScoped<IDepartmentRepository, DepartmentImplementation>();

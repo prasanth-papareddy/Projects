@@ -48,6 +48,6 @@
         <h4 class="text-decoration-line-through">No Users Under this role</h4>
         <a asp-controller="Administration" asp-action="CreateRole" class="btn btn-outline-success">Add Users Role</a>
     }
-    <button type="submit" class="btn btn-outline-primary">Update</button>
+    <button type="submit" class="btn btn-outline-primary" onclick="return confirm('Are you sure to update current Role details ?');">Update</button>
     <a asp-controller="Administration" asp-action="GetRoles" class="btn btn-outline-secondary">Back</a>
 </form>
