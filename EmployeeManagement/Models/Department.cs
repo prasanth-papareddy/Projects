@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Models
 {
-    public class Department
+    public class Department : ISoftDelete
     {
         public int DepartmentId { get; set; }
 

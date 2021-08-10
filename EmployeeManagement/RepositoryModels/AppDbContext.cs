@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
+using Microsoft.AspNetCore.Identity;
+using System.Linq.Expressions;
 
 namespace EmployeeManagement.RepositoryModels
 {
@@ -48,46 +50,60 @@ namespace EmployeeManagement.RepositoryModels
                     DepartmentId = 3,
                     DepartmentName = "Dev"
                 });
+           
+            SetGlobalSoftDeleteQueryFilter(modelBuilder);
 
-            modelBuilder.Entity<Employee>().Property<bool>("IsDeleted");
-            modelBuilder.Entity<Employee>().HasQueryFilter(m => EF.Property<bool>(m, "IsDeleted") == false);
+            foreach (var foreignKey in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
+            }
 
-            modelBuilder.Entity<Department>().Property<bool>("IsDeleted");
-            modelBuilder.Entity<Department>().HasQueryFilter(m => EF.Property<bool>(m, "IsDeleted") == false);
 
-            modelBuilder.Entity<Project>().Property<bool>("IsDeleted");
-            modelBuilder.Entity<Project>().HasQueryFilter(m => EF.Property<bool>(m, "IsDeleted") == false);
         }
 
+        protected void SetGlobalSoftDeleteQueryFilter(ModelBuilder modelBuilder)
+        {
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                var isDeletedProperty = entityType.FindProperty("IsDeleted");
+                if (isDeletedProperty != null
+                    && isDeletedProperty.ClrType == typeof(bool))
+                {
+                    var parameter = Expression.Parameter(
+                        entityType.ClrType, "p");
+                    var prop = Expression.Property(parameter,
+                        isDeletedProperty.PropertyInfo);
+                    var filter = Expression.Lambda(Expression.Not(prop),
+                        parameter);
+                    entityType.SetQueryFilter(filter);
+                }
+            }
+        }
         public override int SaveChanges()
         {
-            UpdateSoftDeleteStatuses();
+            SetSoftDeleteColumns();
             return base.SaveChanges();
         }
 
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
         {
-            UpdateSoftDeleteStatuses();
+            SetSoftDeleteColumns();
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
 
-        private void UpdateSoftDeleteStatuses()
+        private void SetSoftDeleteColumns()
         {
-            foreach (var entry in ChangeTracker.Entries())
+            var entriesDeleted = ChangeTracker
+                .Entries()
+                .Where(e => e.Entity is ISoftDelete
+                        && e.State == EntityState.Deleted);
+
+            foreach (var entityEntry in entriesDeleted)
             {
-                switch (entry.State)
-                {
-                    case EntityState.Added:
-                        entry.CurrentValues["IsDeleted"] = false;
-                        break;
-                    case EntityState.Deleted:
-                        entry.State = EntityState.Modified;
-                        entry.CurrentValues["IsDeleted"] = true;
-                        break;
-                }
+                ((ISoftDelete)entityEntry.Entity).IsDeleted = true;                
+                entityEntry.State = EntityState.Modified;
             }
         }
-
 
     }
 }

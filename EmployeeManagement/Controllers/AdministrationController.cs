@@ -8,6 +8,7 @@ using EmployeeManagement.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.Controllers
 {
@@ -19,7 +20,7 @@ namespace EmployeeManagement.Controllers
         private readonly UserManager<Employee> userManager;
 
         private readonly IDepartmentRepository departmentRepository;
-        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<Employee> userManager , IDepartmentRepository departmentRepository)
+        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<Employee> userManager, IDepartmentRepository departmentRepository)
         {
             this.roleManager = roleManager;
             this.userManager = userManager;
@@ -80,7 +81,7 @@ namespace EmployeeManagement.Controllers
             {
                 if (await userManager.IsInRoleAsync(user, model.Name))
                 {
-                    model.Users.Add(new RoleUsers { Name = user.UserName,UserId= user.Id, IsSelected = true});
+                    model.Users.Add(new RoleUsers { Name = user.UserName, UserId = user.Id, IsSelected = true });
                 }
                 else
                 {
@@ -101,7 +102,7 @@ namespace EmployeeManagement.Controllers
 
             for (int i = 0; i < model.Users.Count; i++)
             {
-                
+
                 var user = await userManager.FindByIdAsync(model.Users[i].UserId);
 
                 IdentityResult RoleUsersResult = null;
@@ -124,7 +125,7 @@ namespace EmployeeManagement.Controllers
                     if (i < (model.Users.Count - 1))
                         continue;
                     else
-                        return RedirectToAction("UpdateRole", new { Id = model.Id});
+                        return RedirectToAction("UpdateRole", new { Id = model.Id });
                 }
             }
 
@@ -147,21 +148,29 @@ namespace EmployeeManagement.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteRole(string id)
         {
-            var role = await roleManager.FindByIdAsync(id);
-
-            var result = await roleManager.DeleteAsync(role);
-
-            if (result.Succeeded)
+            try
             {
-                return RedirectToAction("GetRoles");
-            }
+                var role = await roleManager.FindByIdAsync(id);
 
-            foreach (var error in result.Errors)
+                var result = await roleManager.DeleteAsync(role);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("GetRoles");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                return View("GetRoles");
+            }
+            catch (DbUpdateException Ex)
             {
-                ModelState.AddModelError("", error.Description);
-            }
+                return ViewBag.ErrorMessage = "Cannot delete role as users exists in present role";
 
-            return View("GetRoles");
+            }
         }
 
 
@@ -179,7 +188,7 @@ namespace EmployeeManagement.Controllers
                 Gender = user.Gender,
                 DepartmentId = user.DepartmentId,
                 Departments = departmentRepository.GetDepartments()
-        };
+            };
 
 
             return View(model);
@@ -221,7 +230,7 @@ namespace EmployeeManagement.Controllers
 
             if (result.Succeeded)
             {
-                return RedirectToAction("GetEmployees","Employee");
+                return RedirectToAction("GetEmployees", "Employee");
             }
 
             foreach (var error in result.Errors)

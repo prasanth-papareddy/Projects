@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Models
 {
-    public class Project
+    public class Project : ISoftDelete
     {     
         public int Id { get; set; }
 

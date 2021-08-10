@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Models
 {
-    public class Employee : IdentityUser
+    public class Employee : IdentityUser , ISoftDelete
     {
      
         //public int Id { get; set; }
@@ -35,7 +35,6 @@ namespace EmployeeManagement.Models
 
         public IList<ProjectEmployee>  ProjectEmployees { get; set; }
         
-
         public bool IsDeleted { get; set; }
     }
 }
