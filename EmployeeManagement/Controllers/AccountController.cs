@@ -135,5 +135,11 @@ namespace EmployeeManagement.Controllers
             }
             return View(loginViewModel);
         }
+
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }

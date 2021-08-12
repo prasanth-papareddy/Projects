@@ -1,8 +1,7 @@
-﻿function DeleteConfirm(event, e) {
-    debugger;
+﻿function DeleteConfirm(event, e) {   
     swal({
         title: 'Are you sure?',
-        text: "to deleting this " + e,
+        text: "want to delete this " + e,
         type: 'warning',        
         showConfirmButton: true,
         confirmButtonText: 'Yes',
@@ -24,7 +23,7 @@
 function UpdateConfirm(event) {
     swal({
         title: 'Are you sure?',
-        text: "update the provided details",
+        text: "want to update the provided details",
         type: 'warning',
         showCancelButton: true,
         cancelButtonText: 'No',

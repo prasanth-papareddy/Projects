@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManagement.Controllers
@@ -17,7 +19,15 @@ namespace EmployeeManagement.Controllers
                         ViewBag.ErrorMessage = "Resource Not Found";
                     break;
             }
-            return View("Not Found");
+            return View("NotFound");
         }
+
+        [Route("Error")]
+        [AllowAnonymous]
+        public IActionResult CustomErrorView()
+        {          
+            return View("CustomErrorView");
+        }
+
     }
 }

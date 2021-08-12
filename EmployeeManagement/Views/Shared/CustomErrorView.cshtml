@@ -1,0 +1,21 @@
+﻿@if (ViewBag.ErrorTitle == null)
+{
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div class="alert-danger">
+                <img src="~/Images/ExceptionImage.png" class="mx-auto d-block" />
+
+                <p>An Error occur while processing your request. We are working on a fix</p>
+            </div>
+
+        </div>
+    </div>
+
+}
+else
+{
+    <h2>@ViewBag.ErrorTitle</h2>
+    <h4>@ViewBag.ErrorMessage</h4>
+    <img src="~/Images/ExceptionImage.png" class="mx-auto d-block" />
+}

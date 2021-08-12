@@ -148,10 +148,11 @@ namespace EmployeeManagement.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteRole(string id)
         {
+            var role = await roleManager.FindByIdAsync(id);
+
             try
             {
-                var role = await roleManager.FindByIdAsync(id);
-
+                
                 var result = await roleManager.DeleteAsync(role);
 
                 if (result.Succeeded)
@@ -168,8 +169,9 @@ namespace EmployeeManagement.Controllers
             }
             catch (DbUpdateException Ex)
             {
-                return ViewBag.ErrorMessage = "Cannot delete role as users exists in present role";
-
+                ViewBag.ErrorTitle = $"{role.Name} role in use";
+                ViewBag.ErrorMessage = "Cannot delete role as users exists in present role";
+                return View("CustomErrorView");
             }
         }
 
