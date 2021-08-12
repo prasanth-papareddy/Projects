@@ -13,12 +13,14 @@
     {
       "library": "twitter-bootstrap@5.0.2",
       "destination": "wwwroot/twitter-bootstrap/"
+    },
+    {
+      "library": "popper.js@2.9.3",
+      "destination": "wwwroot/popper.js/"
+    },
+    {
+      "library": "bootstrap-sweetalert@1.0.1",
+      "destination": "wwwroot/lib/bootstrap-sweetalert/"
     }
- 
-  ,
-{
-  "library": "popper.js@2.9.3",
-  "destination": "wwwroot/popper.js/"
-}
-]
+  ]
 }

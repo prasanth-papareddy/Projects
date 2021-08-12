@@ -21,7 +21,7 @@
                             <td>
                                 <a asp-controller="Administration" asp-action="UpdateRole" asp-route-Id="@roles.Id" class="btn btn-outline-success"><i class="fas fa-edit">Edit</i></a>
                                 <form method="post" asp-controller="Administration" asp-action="DeleteRole" asp-route-Id="@roles.Id">
-                                    <button  class="btn btn-outline-danger m-1" onclick="return confirm('Are you sure to delete this Role ?');"><i class="far fa-trash-alt">Delete</i></button>
+                                    <button  class="btn btn-outline-danger m-1" onclick="return DeleteConfirm(this,'Role')"><i class="far fa-trash-alt">Delete</i></button>
                                 </form>
                             </td>
                         </tr>

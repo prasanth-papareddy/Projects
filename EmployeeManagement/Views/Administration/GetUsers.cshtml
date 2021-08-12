@@ -21,7 +21,7 @@
                             <td>
                                 <a asp-controller="Administration" asp-action="UpdateUser" asp-route-Id="@users.Id" class="btn btn-outline-success"><i class="fas fa-edit">Edit</i></a>
                                 <form  method="post" asp-controller="Administration" asp-action="DeleteUser" asp-route-Id="@users.Id" >
-                                    <button type="submit" class="btn btn-outline-danger m-1" onclick="return confirm('Are you sure to delete this Employee ?');">Delete</button>
+                                    <button type="submit" class="btn btn-outline-danger m-1" onclick="return DeleteConfirm(this,'Employee')">Delete</button>
                                 </form>
                             </td>
                         </tr>

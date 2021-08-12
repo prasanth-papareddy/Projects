@@ -22,9 +22,9 @@
                             <a asp-controller="Employee" asp-action="GetEmployee" asp-route-Id="@employee.Id" class="btn btn-outline-primary"><i class="far fa-eye">Get Details</i></a>
                             @if (signInManager.IsSignedIn(User) && (User.IsInRole("Manager") || User.IsInRole("Admin")))
                             {
-                                <a asp-controller="Administration" asp-action="UpdateUser" asp-route-Id="@employee.Id" class="btn btn-outline-success"><i class="fas fa-edit">Edit</i></a>
-                                <form method="post" asp-controller="Administration"  asp-action="DeleteUser" asp-route-Id="@employee.Id">
-                                    <button type="submit" class="btn btn-outline-danger m-1" onclick="return confirm('Are you sure to delete this Employee ?');" >Delete</button>
+                                <a asp-controller="Administration" asp-action="UpdateUser" asp-route-Id="@employee.Id" class="btn btn-outline-success"><i class="fas fa-edit">Edit</i></a>                                
+                                <form method="post" asp-controller="Administration" asp-action="DeleteUser" asp-route-Id="@employee.Id">
+                                    <button type="submit" class="btn btn-outline-danger m-1" onclick="return DeleteConfirm(this,'Employee')">Delete</button>
                                 </form>
                             }
                         </td>
@@ -38,22 +38,3 @@
         }
     </div>
 </div>
-
-@section scripts {
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#GetEmployeesdeleteConfirmation").click(function () {
-                debugger;
-                swal({
-                    title: "Confirmation",
-                    text: "Sure",
-                    type: "Warning",
-                    confirmButtonClass: "btn-danger",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes",
-                    closeOnConfirm: false
-                });
-            })
-        });
-    </script>
-}

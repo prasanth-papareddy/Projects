@@ -16,7 +16,7 @@
                     <tr class="text-center">
                         <td>@d.DepartmentName</td>
                         <td><a asp-controller="Department" asp-action="Update" asp-route-DepartmentId="@d.DepartmentId" class="btn btn-outline-primary"><i class="fas fa-edit">Edit</i></a>
-                        <a asp-controller="Department" asp-action="Delete" asp-route-DepartmentId="@d.DepartmentId" class="btn btn-outline-danger" onclick="return confirm('Are you sure to delete this Department ?');"><i class="far fa-trash-alt">Delete</i></a></td>
+                        <a asp-controller="Department" asp-action="Delete" asp-route-DepartmentId="@d.DepartmentId" class="btn btn-outline-danger" onclick="return DeleteConfirm(this,'Department')"><i class="far fa-trash-alt">Delete</i></a></td>
                     </tr>
                 }
             </tbody>

@@ -221,7 +221,7 @@ namespace EmployeeManagement.Controllers
         }
 
 
-        [HttpPost]
+        [HttpGet][HttpPost]
         public async Task<IActionResult> DeleteUser(string id)
         {
             var user = await userManager.FindByIdAsync(id);
